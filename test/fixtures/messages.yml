@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sender_id: 1
+  room_id: 1
+  content: MyText
+  message_type: MyString
+  timestamp: 2025-07-18 01:11:06
+  read_status: false
+
+two:
+  sender_id: 1
+  room_id: 1
+  content: MyText
+  message_type: MyString
+  timestamp: 2025-07-18 01:11:06
+  read_status: false

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  room_id: 1
+  user_id: 1
+  joined_at: 2025-07-18 01:12:31
+  unread_id: 1
+
+two:
+  room_id: 1
+  user_id: 1
+  joined_at: 2025-07-18 01:12:31
+  unread_id: 1
