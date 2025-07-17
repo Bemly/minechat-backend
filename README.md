@@ -1,3 +1,15 @@
+# How to run
+
+Open this project on Rubymine.
+
+Update `config/database.yml` file to fit your DB.
+
+Double Click `CTRL`.
+
+Command `rake db:migrate` to build database.
+
+Then command `rails s`.
+
 # README
 
 This README would normally document whatever steps are necessary to get the
