@@ -1,0 +1,58 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+entity User {
+  * id : integer <<PK>>
+  --
+  username : varchar(16)
+  nickname : varchar(64)
+  email : varchar(100)
+  passwd : varchar(255)
+  created_at : timestamptz
+  updated_at : timestamptz
+  online_status : boolean
+}
+
+entity Message {
+  * id : integer <<PK>>
+  --
+  sender_id : integer <<FK>>
+  room_id : integer <<FK>>
+  content : text
+  message_type : varchar(20)
+  timestamp : timestamptz
+  read_status : boolean
+}
+
+entity Room {
+  * id : integer <<PK>>
+  --
+  name : varchar(100)
+  creator_id : integer <<FK>>
+  room_type : varchar(20)
+  created_at : timestamptz
+  updated_at : timestamptz
+}
+
+entity Member {
+  * id : integer <<PK>>
+  --
+  room_id : integer <<FK>>
+  user_id : integer <<FK>>
+  joined_at : timestamptz
+  unread_id : integer <<FK>>
+}
+
+' 定义关系 (Cardinality)
+User "1" -- "0..n" Message : sends >
+Message "1" -- "1" Room : belongs to >
+User "1" -- "0..n" Member : is member of >
+Room "1" -- "0..n" Member : has member >
+Room "1" -- "0..n" Message : contains >
+User "1" -- "0..n" Room : creates >
+
+' 解释多对多关系通过中间表
+Member "n" -- "1" User
+Member "n" -- "1" Room
+@enduml
