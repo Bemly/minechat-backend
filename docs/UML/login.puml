@@ -1,0 +1,31 @@
+@startuml
+actor Client
+participant "Rails API (Auth Controller)" as AuthController
+participant "Rails API (Application Controller)" as ApplicationController
+participant "Database" as DB
+
+== 用户注册/登录 ==
+Client -> AuthController : 1. POST /signup 或 /login (username, password)
+AuthController -> DB : 2. 查询/创建用户
+alt 注册成功
+    DB --> AuthController : 3. 用户数据 (已保存/创建)
+    AuthController --> Client : 4. 返回 201 Created / 200 OK
+else 登录成功
+    DB --> AuthController : 3. 用户数据 (已验证)
+    AuthController -> AuthController : 4. 生成 JWT (包含用户ID等)
+    AuthController --> Client : 5. 返回 200 OK, { "jwt": "eyJ...", "user": {...} }
+else 注册/登录失败
+    AuthController --> Client : 4. 返回 401 Unauthorized / 422 Unprocessable Entity
+end
+
+== 后续受保护的 API 请求 ==
+Client -> ApplicationController : 1. GET /users/profile (Header: Authorization: Bearer eyJ...)
+ApplicationController -> ApplicationController : 2. 验证 JWT
+alt JWT 有效
+    ApplicationController -> DB : 3. 获取请求数据
+    DB --> ApplicationController : 4. 数据
+    ApplicationController --> Client : 5. 返回 200 OK, { "data": {...} }
+else JWT 无效/过期
+    ApplicationController --> Client : 3. 返回 401 Unauthorized
+end
+@enduml

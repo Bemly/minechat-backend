@@ -1,0 +1,62 @@
+@startuml
+!theme plain
+
+entity User {
+  + id: integer <<PK>>
+  --
+  username: string {16} <<Unique>>
+  nickname: string {64}
+  email: string {100} <<Unique>>
+  passwd: string {255}
+  online_status: boolean
+  --
+  created_at: datetime
+  updated_at: datetime
+}
+
+entity Room {
+  + id: integer <<PK>>
+  --
+  name: string {100} <<Unique>>
+  creator_id: integer <<FK>>
+  room_type: string {20}
+  --
+  created_at: datetime
+  updated_at: datetime
+}
+
+entity Message {
+  + id: integer <<PK>>
+  --
+  sender_id: integer <<FK>>
+  room_id: integer <<FK>>
+  content: text
+  message_type: string {20}
+  timestamp: datetime
+  read_status: boolean
+  --
+  created_at: datetime
+  updated_at: datetime
+}
+
+entity Member {
+  + id: integer <<PK>>
+  --
+  room_id: integer <<FK>>
+  user_id: integer <<FK>>
+  joined_at: datetime
+  unread_id: integer <<FK>> (Optional)
+  --
+  created_at: datetime
+  updated_at: datetime
+}
+
+' 定义关系'
+User ||--o{ Room : creates >
+User ||--o{ Message : sends >
+Room ||--o{ Message : contains >
+User }|--|| Member : "1" user is a "0..N" member of a room >
+Room }|--|| Member : "1" room has "0..N" members >
+Message }o--|| Member : "0..1" last_read_message for "1" member <
+
+@enduml
