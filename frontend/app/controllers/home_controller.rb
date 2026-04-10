@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @rooms = fetch_rooms
-    @users = fetch_users
+    render Home::Index.new(rooms: fetch_rooms, users: fetch_users)
   end
 
   private

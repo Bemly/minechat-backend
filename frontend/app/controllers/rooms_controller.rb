@@ -1,15 +1,14 @@
 class RoomsController < ApplicationController
   def index
-    @rooms = fetch_rooms
+    render Rooms::Index.new(rooms: fetch_rooms)
   end
 
   def show
-    @room = fetch_room(params[:id])
-    @messages = fetch_room_messages(params[:id])
+    render Rooms::Show.new(room: fetch_room(params[:id]), messages: fetch_room_messages(params[:id]))
   end
 
   def new
-    @room = {}
+    render Rooms::New.new
   end
 
   def create
@@ -17,14 +16,14 @@ class RoomsController < ApplicationController
     if response&.dig("data")
       redirect_to rooms_path, notice: "房间创建成功"
     else
-      @room = room_params
-      @errors = response&.dig("errors") || ["创建失败"]
-      render :new, status: :unprocessable_entity
+      room = room_params.to_unsafe_h || {}
+      errors = response&.dig("errors") || ["创建失败"]
+      render Rooms::New.new(room: room, errors: errors), status: :unprocessable_entity
     end
   end
 
   def edit
-    @room = fetch_room(params[:id])
+    render Rooms::Edit.new(room: fetch_room(params[:id]))
   end
 
   def update
@@ -32,9 +31,9 @@ class RoomsController < ApplicationController
     if response&.dig("data")
       redirect_to rooms_path, notice: "房间更新成功"
     else
-      @room = fetch_room(params[:id])
-      @errors = response&.dig("errors") || ["更新失败"]
-      render :edit, status: :unprocessable_entity
+      room = fetch_room(params[:id])
+      errors = response&.dig("errors") || ["更新失败"]
+      render Rooms::Edit.new(room: room, errors: errors), status: :unprocessable_entity
     end
   end
 

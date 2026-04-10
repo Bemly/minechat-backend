@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
   def index
-    @users = fetch_users
+    render Users::Index.new(users: fetch_users)
   end
 
   def show
-    @user = fetch_user(params[:id])
+    render Users::Show.new(user: fetch_user(params[:id]))
   end
 
   def new
-    @user = {}
+    render Users::New.new
   end
 
   def create
@@ -18,12 +18,12 @@ class UsersController < ApplicationController
     else
       @user = user_params
       @errors = response&.dig("errors") || ["创建失败"]
-      render :new, status: :unprocessable_entity
+      render Users::New.new(user: @user.to_unsafe_h || {}, errors: @errors), status: :unprocessable_entity
     end
   end
 
   def edit
-    @user = fetch_user(params[:id])
+    render Users::Edit.new(user: fetch_user(params[:id]))
   end
 
   def update
@@ -31,9 +31,9 @@ class UsersController < ApplicationController
     if response&.dig("data")
       redirect_to users_path, notice: "用户更新成功"
     else
-      @user = fetch_user(params[:id])
-      @errors = response&.dig("errors") || ["更新失败"]
-      render :edit, status: :unprocessable_entity
+      user = fetch_user(params[:id])
+      errors = response&.dig("errors") || ["更新失败"]
+      render Users::Edit.new(user: user, errors: errors), status: :unprocessable_entity
     end
   end
 

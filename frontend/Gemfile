@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 8.1.1"
-gem "ibm_db", "~> 6.0"
 gem "puma", ">= 5.0"
 gem "bootsnap", require: false
 gem "sidekiq"
@@ -15,6 +14,10 @@ gem "httparty"
 
 # JSON 序列化
 gem "jsonapi-serializer"
+
+# Phlex - 纯 Ruby HTML 组件，零模板
+gem "phlex", "~> 2.0"
+gem "phlex-rails", "~> 2.0"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
