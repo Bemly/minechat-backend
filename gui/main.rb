@@ -127,9 +127,9 @@ class MinechatWindow < Gosu::Window
     end
   end
 
-  # 辅助方法: 用绘制顺序控制层级
+  # 辅助方法: Gosu draw_text 的 y 是基线，加偏移让文字居中
   def draw_text(font, text, x, y, color)
-    font.draw_text(text, x, y, 0, 1.0, 1.0, color)
+    font.draw_text(text, x, y + FONT_SIZE, 0, 1.0, 1.0, color)
   end
 
   def draw_login_screen
