@@ -166,19 +166,19 @@ class MinechatWindow < Gosu::Window
     rooms.each_with_index do |room, i|
       name = room.dig("attributes", "name") || "未命名"
       type = room.dig("attributes", "room_type") || ""
-      y = 120 + i * 60
+      y = 100 + i * 70
       btn_color = @hovered_button == :"room_#{i}" ? @button_hover : @button_bg
-      Gosu.draw_rect(200, y, 500, 50, btn_color)
-      draw_text(@font, "#{name}  (#{type})", 220, y + 12, Gosu::Color::WHITE)
+      Gosu.draw_rect(200, y, 500, 55, btn_color)
+      draw_text(@font, "#{name}  (#{type})", 220, y + 10, Gosu::Color::WHITE)
     end
 
     if rooms.empty?
-      draw_text(@font, "暂无房间，请确保后端服务已启动", 250, 200, @text_color)
+      draw_text(@font, "暂无房间，请确保后端服务已启动", 250, 180, @text_color)
     end
 
     exit_color = @hovered_button == :exit ? Gosu::Color.argb(255, 200, 60, 60) : Gosu::Color.argb(255, 150, 50, 50)
-    Gosu.draw_rect(700, 580, 150, BUTTON_HEIGHT, exit_color)
-    draw_text(@font, "退出", 745, 592, Gosu::Color::WHITE)
+    Gosu.draw_rect(700, 570, 150, BUTTON_HEIGHT, exit_color)
+    draw_text(@font, "退出", 745, 578, Gosu::Color::WHITE)
   end
 
   def draw_chat_screen
@@ -285,10 +285,10 @@ class MinechatWindow < Gosu::Window
       @hovered_button = :login if x >= 350 && x <= 550 && y >= 440 && y <= 480
     when :rooms
       @rooms&.each_with_index do |_, i|
-        btn_y = 120 + i * 60
-        @hovered_button = :"room_#{i}" if x >= 200 && x <= 700 && y >= btn_y && y <= btn_y + 50
+        btn_y = 100 + i * 70
+        @hovered_button = :"room_#{i}" if x >= 200 && x <= 700 && y >= btn_y && y <= btn_y + 55
       end
-      @hovered_button = :exit if x >= 700 && x <= 850 && y >= 580 && y <= 620
+      @hovered_button = :exit if x >= 700 && x <= 850 && y >= 570 && y <= 610
     when :chat
       @hovered_button = :send if x >= WIDTH - 180 && x <= WIDTH - 20 && y >= HEIGHT - 70 && y <= HEIGHT - 35
     end
@@ -310,8 +310,8 @@ class MinechatWindow < Gosu::Window
       end
     when :rooms
       @rooms&.each_with_index do |room, i|
-        btn_y = 120 + i * 60
-        if x >= 200 && x <= 700 && y >= btn_y && y <= btn_y + 50
+        btn_y = 100 + i * 70
+        if x >= 200 && x <= 700 && y >= btn_y && y <= btn_y + 55
           @current_room = room
           @messages = MinechatAPI.room_messages(room["id"])
           @screen = :chat
@@ -319,7 +319,7 @@ class MinechatWindow < Gosu::Window
           return
         end
       end
-      close if x >= 700 && x <= 850 && y >= 580 && y <= 620
+      close if x >= 700 && x <= 850 && y >= 570 && y <= 610
     when :chat
       if x >= 20 && x <= 120 && y >= 10 && y <= 40
         @screen = :rooms
