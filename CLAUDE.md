@@ -11,7 +11,7 @@
 | 后端 API | `backend/` | Rails 8.1 API-only，提供 RESTful 接口 |
 | Web 前端 | `frontend/` | Rails 8.1 全栈应用，消费后端 API |
 | TUI 客户端 | `tui/` | 终端界面，使用 cli-ui |
-| GUI 客户端 | `gui/` | Shoes 4 桌面应用 |
+| GUI 客户端 | `gui/` | Gosu 2D 图形桌面应用 |
 | Android 客户端 | `android/` | Ruboto Android 应用 |
 
 ### 技术栈
@@ -22,7 +22,7 @@
 - jsonapi-serializer (JSON:API 序列化)
 - HTTParty (HTTP 客户端)
 - cli-ui (终端 UI)
-- Shoes 4 (桌面 GUI)
+- Gosu (桌面 2D GUI)
 - Ruboto (Android)
 
 ## 常用命令
@@ -122,7 +122,7 @@ Member ──< belongs_to >── Room
 
 - **前端 (Rails Web)**: 通过 `ApiClient` 服务类调用后端 API
 - **TUI (cli-ui)**: 交互式终端界面，使用 `CLI::UI::Frame` 和 `CLI::UI::prompt`
-- **GUI (Shoes 4)**: 单文件 `main.rb` 入口，Shoes DSL 构建界面
+- **GUI (Gosu)**: 2D 图形窗口，包含登录、房间列表、聊天三个界面
 - **Android (Ruboto)**: Ruby 编写的 Android Activity，使用原生 UI 组件
 
 ## 重要注意事项
@@ -156,9 +156,9 @@ minechat/
 ├── tui/                  # cli-ui 终端客户端
 │   ├── main.rb           # TUI 应用
 │   └── bin/tui           # 入口脚本
-├── gui/                  # Shoes 4 桌面客户端
+├── gui/                  # Gosu 桌面客户端
 │   ├── Gemfile
-│   └── main.rb
+│   └── main.rb           # MinechatWindow 类
 ├── android/              # Ruboto Android 客户端
 │   ├── Rakefile
 │   ├── Gemfile
