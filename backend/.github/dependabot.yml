@@ -15,6 +15,16 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 5
+- package-ecosystem: bundler
+  directory: "/tui"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 5
+- package-ecosystem: bundler
+  directory: "/android"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 5
 - package-ecosystem: github-actions
   directory: "/"
   schedule:

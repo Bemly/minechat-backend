@@ -50,19 +50,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # IBM DB2 服务
     services:
-      postgres:
-        image: postgres
+      db2:
+        image: icr.io/db2_community/db2
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          LICENSE: accept
+          DB2INSTANCE: db2inst1
+          DB2INST1_PASSWORD: db2inst1-pwd
+          DBNAME: MINECHAT
+          CREATE_DB: true
         ports:
-          - 5432:5432
-        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+          - 50000:50000
+        options: --privileged=true --health-cmd="su - db2inst1 -c 'db2 connect to MINECHAT'" --health-interval=10s --health-timeout=10s --health-retries=20
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config
 
       - name: Checkout code
         uses: actions/checkout@v6
@@ -77,6 +81,7 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          DATABASE_URL: ibm-db://db2inst1:db2inst1-pwd@localhost:50000/MINECHAT_TEST
+          SCHEMA: DB2INST1
         run: bin/rails db:test:prepare test
         working-directory: backend

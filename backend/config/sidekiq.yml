@@ -1,0 +1,12 @@
+# Sidekiq 配置
+---
+:concurrency: <%= ENV.fetch("SIDEKIQ_CONCURRENCY", 5) %>
+:queues:
+  - default
+  - mailers
+
+development:
+  :concurrency: 2
+
+production:
+  :concurrency: <%= ENV.fetch("SIDEKIQ_CONCURRENCY", 10) %>

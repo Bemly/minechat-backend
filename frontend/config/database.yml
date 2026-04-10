@@ -1,18 +1,29 @@
 default: &default
-  adapter: postgresql
+  adapter: ibm_db
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: minechat_frontend_development
+  database: MINECHAT_FRONTEND
+  username: db2inst1
+  hostname: localhost
+  port: 50000
+  schema: DB2INST1
 
 test:
   <<: *default
-  database: minechat_frontend_test
+  database: MINECHAT_FRONTEND_TEST
+  username: db2inst1
+  hostname: localhost
+  port: 50000
+  schema: DB2INST1
 
 production:
   <<: *default
-  database: minechat_frontend_production
-  username: minechat_frontend
+  database: MINECHAT_FRONTEND_PROD
+  username: <%= ENV["MINECHAT_FRONTEND_DATABASE_USER"] %>
   password: <%= ENV["MINECHAT_FRONTEND_DATABASE_PASSWORD"] %>
+  hostname: <%= ENV["MINECHAT_FRONTEND_DATABASE_HOST"] %>
+  port: 50000
+  schema: <%= ENV.fetch("MINECHAT_FRONTEND_DATABASE_SCHEMA", "DB2INST1") %>

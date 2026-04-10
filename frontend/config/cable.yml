@@ -1,16 +1,13 @@
-test:
-  adapter: async
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: minechat_frontend_test
-
+# Action Cable 配置 - 使用 Redis
 development:
-  adapter: async
+  adapter: redis
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
   channel_prefix: minechat_frontend_development
 
+test:
+  adapter: test
+
 production:
-  adapter: solid_cable
-  connects_to:
-    database:
-      writing: cable
-  polling_interval: 0.1.seconds
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  channel_prefix: minechat_frontend_production

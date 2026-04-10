@@ -1,0 +1,7 @@
+source "https://rubygems.org"
+
+# 终端 UI 框架
+gem "cli-ui"
+
+# HTTP 客户端，用于调用后端 API
+gem "httparty"

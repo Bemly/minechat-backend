@@ -1,6 +1,5 @@
 # This file is auto-generated from the current state of the database.
-ActiveRecord::Schema[8.0].define(version: 2025_07_17_171231) do
-  enable_extension "pg_catalog.plpgsql"
+ActiveRecord::Schema.define(version: 2025_07_17_171231) do
 
   create_table "members", force: :cascade do |t|
     t.integer "room_id"

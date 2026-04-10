@@ -1,9 +1,9 @@
 # 队列配置 - 前端通常不需要独立队列
 development:
-  adapter: async
+  adapter: sidekiq
 
 test:
-  adapter: async
+  adapter: test
 
 production:
-  adapter: solid_queue
+  adapter: sidekiq

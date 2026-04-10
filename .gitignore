@@ -39,6 +39,16 @@
 
 /gui/.bundle/
 
+/tui/.bundle/
+
+# Android build artifacts
+/android/.bundle/
+/android/.gradle/
+/android/app/build/
+/android/build/
+/android/*.iml
+/android/local.properties
+
 ## Environment
 /backend/.env
 /backend/.env.*
@@ -46,6 +56,12 @@
 /frontend/.env.*
 /gui/.env
 /gui/.env.*
+
+/tui/.env
+/tui/.env.*
+
+/android/.env
+/android/.env.*
 
 # Ignore master key for decrypting credentials and more.
 /backend/config/master.key

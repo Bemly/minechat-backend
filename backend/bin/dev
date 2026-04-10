@@ -1,2 +1,6 @@
-#!/usr/bin/env ruby.exe
-exec "./bin/rails", "server", *ARGV
+#!/usr/bin/env bash
+# 同时启动 Rails 服务器和 Sidekiq
+trap "kill 0" EXIT
+
+bundle exec sidekiq &
+bundle exec rails server

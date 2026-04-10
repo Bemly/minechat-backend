@@ -1,0 +1,14 @@
+# Ruboto Android 项目 Rakefile
+require "ruboto"
+
+Ruboto::App.configure do |config|
+  config.name = "Minechat"
+  config.package_name = "com.minechat.app"
+  config.min_sdk = 21
+  config.target_sdk = 34
+  config.version_code = 1
+  config.version_name = "1.0.0"
+
+  # 后端 API 地址
+  config.api_url = ENV.fetch("MINECHAT_API_URL", "http://10.0.2.2:3000")
+end

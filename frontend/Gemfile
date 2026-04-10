@@ -1,12 +1,11 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 8.1.1"
-gem "pg", "~> 1.6"
+gem "ibm_db", "~> 6.0"
 gem "puma", ">= 5.0"
 gem "bootsnap", require: false
-gem "solid_cache"
-gem "solid_queue"
-gem "solid_cable"
+gem "sidekiq"
+gem "redis", ">= 4.0"
 gem "kamal", require: false
 gem "thruster", require: false
 gem "tzinfo-data", platforms: %i[ windows jruby ]
