@@ -9,18 +9,19 @@
 | 项目 | 路径 | 说明 |
 |------|------|------|
 | 后端 API | `backend/` | Rails 8.1 API-only，提供 RESTful 接口 |
-| Web 前端 | `frontend/` | Rails 8.1 全栈应用，消费后端 API |
+| Web 前端 | `frontend/` | Rails 8.1 + Phlex，纯 Ruby HTML 组件（零 .erb 模板） |
 | TUI 客户端 | `tui/` | 终端界面，使用 cli-ui |
 | GUI 客户端 | `gui/` | Gosu 2D 图形桌面应用 |
 | Android 客户端 | `android/` | Ruboto Android 应用 |
 
 ### 技术栈
 - Ruby 3.4.4, Rails 8.1
-- IBM DB2 数据库
+- IBM DB2 数据库（ibm_db gem，最高版本 5.6.1，**不存在 6.0**）
 - Redis (Sidekiq + Action Cable)
 - Sidekiq (后台任务处理)
 - jsonapi-serializer (JSON:API 序列化)
 - HTTParty (HTTP 客户端)
+- Phlex (前端 HTML 组件，替代 ERB 模板)
 - cli-ui (终端 UI)
 - Gosu (桌面 2D GUI)
 - Ruboto (Android)
@@ -45,7 +46,6 @@ bin/brakeman                       # 安全扫描
 ```bash
 cd frontend
 bundle install
-bin/rails db:create db:migrate
 MINECHAT_API_URL=http://localhost:3000 bin/rails s -p 3001
 ```
 
@@ -113,24 +113,32 @@ Member ──< belongs_to >── Room
 
 ### 数据库 (IBM DB2)
 
-- 适配器: `ibm_db` gem
+- 适配器: `ibm_db` gem（版本 >= 5.0，不存在 6.0）
 - 默认端口: 50000
 - 默认 Schema: `DB2INST1`
 - 连接参数通过 `config/database.yml` 或环境变量配置
 
+### 前端 (Phlex)
+
+- 零 ERB 模板，全部 Ruby 类 (`app/views/*.rb`)
+- `ApplicationView` 基类包含导航栏、flash 消息、CSS 样式
+- 每个视图是一个 Phlex 组件类，通过 `render` 调用
+
 ### 客户端架构
 
-- **前端 (Rails Web)**: 通过 `ApiClient` 服务类调用后端 API
+- **前端 (Phlex)**: 通过 `ApiClient` 服务类调用后端 API
 - **TUI (cli-ui)**: 交互式终端界面，使用 `CLI::UI::Frame` 和 `CLI::UI::prompt`
 - **GUI (Gosu)**: 2D 图形窗口，包含登录、房间列表、聊天三个界面
+  - 注意: Gosu 1.4.6 的 draw_rect/draw_text 是 C++ SWIG 绑定，**不支持关键字参数**，全部使用位置参数
 - **Android (Ruboto)**: Ruby 编写的 Android Activity，使用原生 UI 组件
 
 ## 重要注意事项
 
-1. **无认证系统** — 当前 `sender_id` 和 `creator_id` 直接从客户端参数获取，生产环境需要从认证用户派生
-2. **密码明文存储** — `passwd` 字段未加密，无 bcrypt 集成
-3. **纯 Ruby 技术栈** — 项目不使用 JavaScript 框架，仅 Ruby
-4. **API 响应格式** — 使用 JSON:API 规范 (jsonapi-serializer)
+1. **纯 Ruby 技术栈** — 项目不使用 JavaScript 框架或 HTML 模板，仅 Ruby
+2. **前端零 HTML** — 所有 HTML 通过 Phlex Ruby 组件生成
+3. **无认证系统** — 当前 `sender_id` 和 `creator_id` 直接从客户端参数获取，生产环境需要从认证用户派生
+4. **密码明文存储** — `passwd` 字段未加密，无 bcrypt 集成
+5. **API 响应格式** — 使用 JSON:API 规范 (jsonapi-serializer)
 
 ## 文件结构
 
@@ -146,11 +154,11 @@ minechat/
 │   │   └── ...
 │   ├── db/
 │   └── test/
-├── frontend/             # Rails Web 客户端
+├── frontend/             # Rails Web 客户端 (Phlex)
 │   ├── app/
 │   │   ├── controllers/  # home, users, rooms
 │   │   ├── services/     # api_client.rb
-│   │   └── views/        # ERB 模板
+│   │   └── views/        # Phlex Ruby 组件 (无 .erb)
 │   ├── config/
 │   └── db/
 ├── tui/                  # cli-ui 终端客户端
