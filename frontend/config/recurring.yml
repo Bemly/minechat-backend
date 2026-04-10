@@ -1,0 +1,7 @@
+# 定时任务配置
+# production:
+#   - id: periodic_cleanup
+#     class: CleanUpJob
+#     args: 1000, verbose
+#     schedule: every hour
+#     queue: default

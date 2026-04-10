@@ -1,0 +1,9 @@
+# 队列配置 - 前端通常不需要独立队列
+development:
+  adapter: async
+
+test:
+  adapter: async
+
+production:
+  adapter: solid_queue

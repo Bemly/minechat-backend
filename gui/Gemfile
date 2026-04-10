@@ -1,0 +1,10 @@
+source "https://rubygems.org"
+
+# Shoes 4 GUI 框架 (仍在开发中)
+gem "shoes4", "~> 4.0"
+
+# HTTP 客户端，用于调用后端 API
+gem "httparty"
+
+# JSON 解析
+gem "json"

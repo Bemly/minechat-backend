@@ -1,0 +1,29 @@
+<h1>编辑用户</h1>
+
+<% if @errors %>
+  <ul style="color: red">
+    <% @errors.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @user, url: user_path(@user["id"]), method: :patch, local: true do |f| %>
+  <p>
+    <%= f.label :username, "用户名" %><br>
+    <%= f.text_field :username, value: @user.dig("attributes", "username") %>
+  </p>
+  <p>
+    <%= f.label :nickname, "昵称" %><br>
+    <%= f.text_field :nickname, value: @user.dig("attributes", "nickname") %>
+  </p>
+  <p>
+    <%= f.label :email, "邮箱" %><br>
+    <%= f.email_field :email, value: @user.dig("attributes", "email") %>
+  </p>
+  <p>
+    <%= f.submit "更新" %>
+  </p>
+<% end %>
+
+<%= link_to "返回", users_path %>

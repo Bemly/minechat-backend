@@ -1,0 +1,15 @@
+<h1><%= @user.dig("attributes", "nickname") || @user.dig("attributes", "username") || "用户详情" %></h1>
+
+<dl>
+  <dt>用户名</dt>
+  <dd><%= @user.dig("attributes", "username") %></dd>
+  <dt>昵称</dt>
+  <dd><%= @user.dig("attributes", "nickname") %></dd>
+  <dt>邮箱</dt>
+  <dd><%= @user.dig("attributes", "email") %></dd>
+  <dt>在线状态</dt>
+  <dd><%= @user.dig("attributes", "online_status") ? "在线" : "离线" %></dd>
+</dl>
+
+<%= link_to "返回", users_path %>
+<%= link_to "编辑", edit_user_path(@user["id"]) %>

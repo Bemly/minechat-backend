@@ -1,0 +1,24 @@
+# 中文本地化
+zh-CN:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "验证失败: %{errors}"
+        restrict_dependent_destroy:
+          has_one: 由于 %{record} 需要此记录，所以无法删除
+          has_many: 由于 %{record} 需要此记录，所以无法删除
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      long: "%Y年%m月%d日"
+      short: "%m月%d日"
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M:%S"
+      long: "%Y年%m月%d日 %H:%M"
+      short: "%m月%d日 %H:%M"
+  helpers:
+    submit:
+      create: "创建%{model}"
+      update: "更新%{model}"
+      submit: "保存%{model}"

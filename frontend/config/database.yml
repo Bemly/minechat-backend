@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: minechat_frontend_development
+
+test:
+  <<: *default
+  database: minechat_frontend_test
+
+production:
+  <<: *default
+  database: minechat_frontend_production
+  username: minechat_frontend
+  password: <%= ENV["MINECHAT_FRONTEND_DATABASE_PASSWORD"] %>

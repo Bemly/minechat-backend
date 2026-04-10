@@ -1,0 +1,33 @@
+<h1>新建用户</h1>
+
+<% if @errors %>
+  <ul style="color: red">
+    <% @errors.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @user, url: users_path, local: true do |f| %>
+  <p>
+    <%= f.label :username, "用户名" %><br>
+    <%= f.text_field :username %>
+  </p>
+  <p>
+    <%= f.label :nickname, "昵称" %><br>
+    <%= f.text_field :nickname %>
+  </p>
+  <p>
+    <%= f.label :email, "邮箱" %><br>
+    <%= f.email_field :email %>
+  </p>
+  <p>
+    <%= f.label :passwd, "密码" %><br>
+    <%= f.password_field :passwd %>
+  </p>
+  <p>
+    <%= f.submit "创建" %>
+  </p>
+<% end %>
+
+<%= link_to "返回", users_path %>

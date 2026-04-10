@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Minechat</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application" %>
+  </head>
+
+  <body>
+    <nav>
+      <%= link_to "首页", root_path %> |
+      <%= link_to "用户", users_path %> |
+      <%= link_to "房间", rooms_path %>
+    </nav>
+
+    <% if notice %>
+      <p style="color: green"><%= notice %></p>
+    <% end %>
+
+    <% if alert %>
+      <p style="color: red"><%= alert %></p>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+require_relative "../config/boot"
+require "bundler/setup"
+
+puts "Minechat Frontend 设置脚本"
+puts "========================"
+
+puts "\n1. 创建数据库..."
+system("bin/rails db:create")
+
+puts "\n2. 运行迁移..."
+system("bin/rails db:migrate")
+
+puts "\n3. 加载种子数据..."
+system("bin/rails db:seed")
+
+puts "\n设置完成！运行 bin/rails s 启动服务器。"

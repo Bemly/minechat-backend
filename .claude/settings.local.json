@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -ril \"frontend\\\\|web\\\\|client\\\\|gui\\\\|shoes\" /Users/bemly/cchaha/minechat/ --include=*.rb --include=*.yml --include=*.yaml --include=*.erb --include=*.js --include=*.ts --include=*.json --include=*.html --include=*.css --include=*.scss)",
+      "Bash(grep -v '^\\\\.\\\\.*$')",
+      "Bash(grep -v '^\\\\.git$')",
+      "Bash(for item:*)",
+      "Bash(do git:*)",
+      "Bash(done)",
+      "Bash(rails new:*)",
+      "Bash(bundle exec:*)",
+      "Bash(ruby --version)",
+      "Bash(rbenv versions:*)",
+      "Bash(rvm list:*)",
+      "Bash(chmod:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+<h1>编辑房间</h1>
+
+<% if @errors %>
+  <ul style="color: red">
+    <% @errors.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @room, url: room_path(@room["id"]), method: :patch, local: true do |f| %>
+  <p>
+    <%= f.label :name, "房间名称" %><br>
+    <%= f.text_field :name, value: @room.dig("attributes", "name") %>
+  </p>
+  <p>
+    <%= f.label :room_type, "类型" %><br>
+    <%= f.text_field :room_type, value: @room.dig("attributes", "room_type") %>
+  </p>
+  <p>
+    <%= f.submit "更新" %>
+  </p>
+<% end %>
+
+<%= link_to "返回", rooms_path %>
