@@ -78,13 +78,13 @@ make up-dev        # start development environment
 make migrate       # run database migrations
 ```
 
-Services: web (port 3000), sidekiq, PostgreSQL, Redis. Supports both arm64 and x64 architectures.
+Services: web (port 3000), sidekiq, IBM DB2, Redis. Supports both arm64 and x64 architectures.
 
 ## Tech Stack
 
 - Ruby 3.4.4
 - Rails 8.1
-- PostgreSQL
+- IBM DB2
 - Redis (Sidekiq + Action Cable)
 - Sidekiq (background jobs)
 - jsonapi-serializer (JSON:API serialization)

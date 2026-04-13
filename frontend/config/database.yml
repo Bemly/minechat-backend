@@ -1,3 +1,6 @@
+# IBM DB2 数据库配置
+# 需要安装 IBM Data Server Driver Package (DS Driver)
+# macOS: brew tap ibm-db2/ibm_db2 && brew install ibm_db2_dsdriver
 default: &default
   adapter: ibm_db
   encoding: unicode

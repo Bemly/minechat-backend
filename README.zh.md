@@ -78,13 +78,13 @@ make up-dev        # 启动开发环境
 make migrate       # 数据库迁移
 ```
 
-包含四个服务：web (端口 3000)、sidekiq、PostgreSQL、Redis。支持 arm64 和 x64 多架构。
+包含四个服务：web (端口 3000)、sidekiq、IBM DB2、Redis。支持 arm64 和 x64 多架构。
 
 ## 技术栈
 
 - Ruby 3.4.4
 - Rails 8.1
-- PostgreSQL 数据库
+- IBM DB2 数据库
 - Redis (Sidekiq + Action Cable)
 - Sidekiq (后台任务)
 - jsonapi-serializer (JSON:API 序列化)

@@ -4,7 +4,7 @@
 services:
   db:
     ports:
-      - "5432:5432"
+      - "50000:50000"
 
   redis:
     ports:

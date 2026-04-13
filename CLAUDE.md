@@ -16,7 +16,7 @@
 
 ### 技术栈
 - Ruby 3.4.4, Rails 8.1
-- PostgreSQL 数据库
+- IBM DB2 数据库（ibm_db gem，最高版本 5.6.1，**不存在 6.0**）
 - Redis (Sidekiq + Action Cable)
 - Sidekiq (后台任务处理)
 - jsonapi-serializer (JSON:API 序列化)
@@ -111,18 +111,18 @@ Member ──< belongs_to >── Room
 - 配置文件: `backend/config/sidekiq.yml`
 - 开发模式: `bin/dev` 同时启动 Rails + Sidekiq
 
-### 数据库 (PostgreSQL)
+### 数据库 (IBM DB2)
 
-- 适配器: `pg` gem
-- 开发数据库: `minechat_development` / `minechat_test`
-- 前端数据库: `minechat_frontend_development` / `minechat_frontend_test`
-- 生产环境通过 `DATABASE_URL` 环境变量配置
+- 适配器: `ibm_db` gem（版本 >= 5.0，不存在 6.0）
+- 默认端口: 50000
+- 默认 Schema: `DB2INST1`
+- 连接参数通过 `config/database.yml` 或环境变量配置
 
 ### Docker 部署
 
 - `backend/Dockerfile` — 生产用多阶段构建 (ruby:3.4.4-slim)
 - `backend/Dockerfile.dev` — 开发用，支持 volume mount 热重载
-- `docker/docker-compose.yml` — 生产环境编排 (web + sidekiq + postgres + redis)
+- `docker/docker-compose.yml` — 生产环境编排 (web + sidekiq + IBM DB2 + redis)
 - `docker/docker-compose.dev.yml` — 开发环境编排 (代码实时同步)
 - `docker/Makefile` — 便捷命令: `make up-dev`, `make migrate`, `make build-multi` 等
 - 支持 arm64 和 x64 多架构构建 (docker buildx)
