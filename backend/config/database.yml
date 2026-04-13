@@ -1,33 +1,16 @@
-# IBM DB2 数据库配置
-# 需要安装 IBM Data Server Driver Package (DS Driver)
-# macOS: brew tap ibm-db2/ibm_db2 && brew install ibm_db2_dsdriver
 default: &default
-  adapter: ibm_db
+  adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: MINECHAT
-  username: db2inst1
-  password:
-  hostname: localhost
-  port: 50000
-  schema: DB2INST1
+  database: minechat_development
 
 test:
   <<: *default
-  database: MINECHAT_TEST
-  username: db2inst1
-  hostname: localhost
-  port: 50000
-  schema: DB2INST1
+  database: minechat_test
 
 production:
   <<: *default
-  database: MINECHAT_PROD
-  username: <%= ENV["MINECHAT_DATABASE_USER"] %>
-  password: <%= ENV["MINECHAT_DATABASE_PASSWORD"] %>
-  hostname: <%= ENV["MINECHAT_DATABASE_HOST"] %>
-  port: 50000
-  schema: <%= ENV.fetch("MINECHAT_DATABASE_SCHEMA", "DB2INST1") %>
+  url: <%= ENV["MINECHAT_DATABASE_URL"] %>
