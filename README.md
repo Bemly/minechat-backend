@@ -1,46 +1,47 @@
 # Minechat
 
-纯 Ruby 构建的聊天应用，采用 Monorepo 结构，包含五个子项目：
+A chat application built entirely in Ruby, using a Monorepo structure with five sub-projects:
 
-| 项目 | 技术 | 说明 |
-|------|------|------|
-| [backend/](backend/) | Rails API | RESTful API 服务端，提供用户、房间、消息、成员管理 |
-| [frontend/](frontend/) | Rails Web | Web 客户端，通过 HTTP 调用 backend API，使用 ERB 视图 |
-| [tui/](tui/) | cli-ui | 终端界面客户端，交互式聊天 |
-| [gui/](gui/) | Gosu | 桌面 2D GUI 客户端，图形界面 |
-| [android/](android/) | Ruboto | Android 应用，原生界面 |
+| Project | Tech | Description |
+|---------|------|-------------|
+| [backend/](backend/) | Rails API | RESTful API server for users, rooms, messages, and members |
+| [frontend/](frontend/) | Rails Web + Phlex | Web client, calls backend API via HTTP, zero ERB templates |
+| [tui/](tui/) | cli-ui | Terminal UI client, interactive chat |
+| [gui/](gui/) | Gosu | Desktop 2D GUI client, graphical interface |
+| [android/](android/) | Ruboto | Android app, native UI |
 
-## 快速开始
+[中文文档](README.zh.md)
 
-### 后端 (Rails API)
+## Quick Start
+
+### Backend (Rails API)
 
 ```bash
 cd backend
 bundle install
 bin/rails db:create db:migrate db:seed
-bin/rails s  # 默认端口 3000
+bin/rails s  # default port 3000
 ```
 
-启动 Sidekiq 处理后台任务：
+Start Sidekiq for background jobs:
 ```bash
 bundle exec sidekiq
 ```
 
-或使用 `bin/dev` 同时启动服务器和 Sidekiq：
+Or use `bin/dev` to start both server and Sidekiq:
 ```bash
 bin/dev
 ```
 
-### 前端 (Rails Web)
+### Frontend (Rails Web)
 
 ```bash
 cd frontend
 bundle install
-bin/rails db:create db:migrate
 MINECHAT_API_URL=http://localhost:3000 bin/rails s -p 3001
 ```
 
-### TUI 客户端
+### TUI Client
 
 ```bash
 cd tui
@@ -48,7 +49,7 @@ bundle install
 MINECHAT_API_URL=http://localhost:3000 bundle exec ruby main.rb
 ```
 
-### GUI 客户端 (Gosu)
+### GUI Client (Gosu)
 
 ```bash
 cd gui
@@ -56,47 +57,59 @@ bundle install
 MINECHAT_API_URL=http://localhost:3000 bundle exec ruby main.rb
 ```
 
-### Android 客户端 (Ruboto)
+### Android Client (Ruboto)
 
 ```bash
 cd android
 bundle install
-rake ruboto:setup  # 首次运行，配置 Android SDK
+rake ruboto:setup  # first time only, configure Android SDK
 MINECHAT_API_URL=http://10.0.2.2:3000 rake build
-rake install       # 安装到模拟器或设备
+rake install       # install to emulator or device
 ```
 
-> 注意: Ruboto 仍在开发中，Android 客户端功能可能不稳定。
+> Note: Ruboto is still under development. The Android client may be unstable.
 
-## 技术栈
+## Docker
+
+```bash
+cd docker
+cp .env.example .env
+make up-dev        # start development environment
+make migrate       # run database migrations
+```
+
+Services: web (port 3000), sidekiq, PostgreSQL, Redis. Supports both arm64 and x64 architectures.
+
+## Tech Stack
 
 - Ruby 3.4.4
 - Rails 8.1
-- IBM DB2 数据库
+- PostgreSQL
 - Redis (Sidekiq + Action Cable)
-- Sidekiq (后台任务)
-- jsonapi-serializer (JSON:API 序列化)
-- HTTParty (HTTP 客户端)
-- cli-ui (终端界面)
-- Gosu (桌面 2D GUI)
+- Sidekiq (background jobs)
+- jsonapi-serializer (JSON:API serialization)
+- HTTParty (HTTP client)
+- Phlex (HTML components, zero ERB templates)
+- cli-ui (terminal UI)
+- Gosu (desktop 2D GUI)
 - Ruboto (Android)
 
-## 测试
+## Testing
 
 ```bash
-# 后端测试
+# Backend tests
 cd backend && bin/rails test
 
-# 前端测试
+# Frontend tests
 cd frontend && bin/rails test
 
-# 运行单个测试文件
+# Run a single test file
 cd backend && bin/rails test test/controllers/users_controller_test.rb
 ```
 
-## 代码质量
+## Code Quality
 
 ```bash
-cd backend && bin/rubocop   # 代码风格检查
-cd backend && bin/brakeman   # 安全扫描
+cd backend && bin/rubocop   # style check
+cd backend && bin/brakeman   # security scan
 ```
