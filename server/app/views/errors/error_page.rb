@@ -15,6 +15,7 @@ module Errors
           title { "#{@code} - #{@title}" }
           meta name: "viewport", content: "width=device-width,initial-scale=1"
           meta name: "theme-color", content: "#0d0e10"
+          link(rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=VT323&display=swap")
           style { CSS }
         end
         body do
@@ -31,7 +32,6 @@ module Errors
     end
 
     CSS = <<~CSS
-      @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
       * { margin: 0; padding: 0; box-sizing: border-box; }
       :root {
         --bg: #121214;

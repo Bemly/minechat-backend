@@ -8,6 +8,7 @@ class ApplicationView < Phlex::HTML
         title { "Minechat" }
         meta name: "viewport", content: "width=device-width,initial-scale=1"
         meta name: "theme-color", content: "#0d0e10"
+        link(rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=VT323&display=swap")
         style { BASE_CSS }
       end
       body do
@@ -25,8 +26,6 @@ class ApplicationView < Phlex::HTML
   end
 
   BASE_CSS = <<~CSS
-    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
