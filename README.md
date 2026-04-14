@@ -1,11 +1,10 @@
 # Minechat
 
-A chat application built entirely in Ruby, using a Monorepo structure with five sub-projects:
+A chat application built entirely in Ruby, using a Monorepo structure with one Rails app and three clients:
 
 | Project | Tech | Description |
 |---------|------|-------------|
-| [backend/](backend/) | Rails API | RESTful API server for users, rooms, messages, and members |
-| [frontend/](frontend/) | Rails Web + Phlex | Web client, calls backend API via HTTP, zero ERB templates |
+| Web App (root) | Rails + Phlex | Web frontend with server-side rendering + Marshal API at `/api/` |
 | [tui/](tui/) | cli-ui | Terminal UI client, interactive chat |
 | [gui/](gui/) | Gosu | Desktop 2D GUI client, graphical interface |
 | [android/](android/) | Ruboto | Android app, native UI |
@@ -14,12 +13,11 @@ A chat application built entirely in Ruby, using a Monorepo structure with five 
 
 ## Quick Start
 
-### Backend (Rails API)
+### Web App
 
 ```bash
-cd backend
 bundle install
-bin/rails db:create db:migrate db:seed
+bin/rails db:create db:migrate
 bin/rails s  # default port 3000
 ```
 
@@ -31,14 +29,6 @@ bundle exec sidekiq
 Or use `bin/dev` to start both server and Sidekiq:
 ```bash
 bin/dev
-```
-
-### Frontend (Rails Web)
-
-```bash
-cd frontend
-bundle install
-MINECHAT_API_URL=http://localhost:3000 bin/rails s -p 3001
 ```
 
 ### TUI Client
@@ -69,27 +59,15 @@ rake install       # install to emulator or device
 
 > Note: Ruboto is still under development. The Android client may be unstable.
 
-## Docker
-
-```bash
-cd docker
-cp .env.example .env
-make up-dev        # start development environment
-make migrate       # run database migrations
-```
-
-Services: web (port 3000), sidekiq, IBM DB2, Redis. Supports both arm64 and x64 architectures.
-
 ## Tech Stack
 
-- Ruby 3.4.4
-- Rails 8.1
-- IBM DB2
-- Redis (Sidekiq + Action Cable)
+- Ruby 3.3.11
+- Rails 7.2.3.1
+- IBM DB2 (ibm_db >= 5.6.1)
+- Redis (Sidekiq)
 - Sidekiq (background jobs)
-- jsonapi-serializer (JSON:API serialization)
-- HTTParty (HTTP client)
 - Phlex (HTML components, zero ERB templates)
+- Ruby Marshal (API serialization)
 - cli-ui (terminal UI)
 - Gosu (desktop 2D GUI)
 - Ruboto (Android)
@@ -97,19 +75,15 @@ Services: web (port 3000), sidekiq, IBM DB2, Redis. Supports both arm64 and x64 
 ## Testing
 
 ```bash
-# Backend tests
-cd backend && bin/rails test
-
-# Frontend tests
-cd frontend && bin/rails test
+bin/rails test
 
 # Run a single test file
-cd backend && bin/rails test test/controllers/users_controller_test.rb
+bin/rails test test/controllers/users_controller_test.rb
 ```
 
 ## Code Quality
 
 ```bash
-cd backend && bin/rubocop   # style check
-cd backend && bin/brakeman   # security scan
+bin/rubocop   # style check
+bin/brakeman   # security scan
 ```
