@@ -8,26 +8,27 @@ default: &default
 
 development:
   <<: *default
-  database: MINECHAT
-  username: db2inst1
-  password:
-  hostname: localhost
+  database: <%= ENV.fetch("MINECHAT_DATABASE_NAME", "MINECHAT") %>
+  username: <%= ENV.fetch("MINECHAT_DATABASE_USER", "db2inst1") %>
+  password: <%= ENV.fetch("MINECHAT_DATABASE_PASSWORD", "db2inst1") %>
+  host: <%= ENV.fetch("MINECHAT_DATABASE_HOST", "localhost") %>
   port: 50000
-  schema: DB2INST1
+  schema: <%= ENV.fetch("MINECHAT_DATABASE_SCHEMA", "DB2INST1") %>
 
 test:
   <<: *default
-  database: MINECHAT_TEST
-  username: db2inst1
-  hostname: localhost
+  database: <%= ENV.fetch("MINECHAT_DATABASE_NAME", "MINECHAT") %>
+  username: <%= ENV.fetch("MINECHAT_DATABASE_USER", "db2inst1") %>
+  password: <%= ENV.fetch("MINECHAT_DATABASE_PASSWORD", "db2inst1") %>
+  host: <%= ENV.fetch("MINECHAT_DATABASE_HOST", "localhost") %>
   port: 50000
-  schema: DB2INST1
+  schema: <%= ENV.fetch("MINECHAT_DATABASE_SCHEMA", "DB2INST1") %>
 
 production:
   <<: *default
-  database: MINECHAT_PROD
+  database: <%= ENV.fetch("MINECHAT_DATABASE_NAME", "MINECHAT") %>
   username: <%= ENV["MINECHAT_DATABASE_USER"] %>
   password: <%= ENV["MINECHAT_DATABASE_PASSWORD"] %>
-  hostname: <%= ENV["MINECHAT_DATABASE_HOST"] %>
+  host: <%= ENV["MINECHAT_DATABASE_HOST"] %>
   port: 50000
   schema: <%= ENV.fetch("MINECHAT_DATABASE_SCHEMA", "DB2INST1") %>

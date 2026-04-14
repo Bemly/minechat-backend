@@ -44,7 +44,7 @@ services:
       redis:
         condition: service_started
     environment:
-      RAILS_ENV: production
+      RAILS_ENV: development
       REDIS_URL: redis://redis:6379/0
       MINECHAT_DATABASE_HOST: db
       MINECHAT_DATABASE_USER: db2inst1
@@ -52,6 +52,10 @@ services:
       MINECHAT_DATABASE_SCHEMA: DB2INST1
     ports:
       - "3000:3000"
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
 
 volumes:
   db_data:
+  bundle_cache:
