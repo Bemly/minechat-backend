@@ -1,0 +1,27 @@
+source "https://rubygems.org"
+
+gem "rails", "~> 7.2.3.1"
+gem "ibm_db", ">= 5.6.1"
+gem "puma", ">= 5.0"
+gem "bootsnap", require: false
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+
+# Phlex - 纯 Ruby HTML 组件，零模板
+gem "phlex", "~> 2.0"
+gem "phlex-rails", "~> 2.0"
+
+# Sidekiq + Redis
+gem "sidekiq"
+gem "sidekiq-cron"
+gem "redis", ">= 4.0"
+gem "solid_cache"
+
+# 部署
+gem "kamal", require: false
+gem "thruster", require: false
+
+group :development, :test do
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "brakeman", require: false
+  gem "rubocop-rails-omakase", require: false
+end

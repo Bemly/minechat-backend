@@ -1,9 +1,0 @@
-# Sidekiq 队列配置
-development:
-  adapter: sidekiq
-
-test:
-  adapter: test
-
-production:
-  adapter: sidekiq
