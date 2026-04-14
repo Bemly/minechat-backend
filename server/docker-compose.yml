@@ -4,6 +4,9 @@
 services:
   db:
     image: docker.1ms.run/ibmcom/db2:11.5.8.0
+    dns:
+      - 223.5.5.5
+      - 8.8.8.8
     environment:
       DB2INSTANCE: db2inst1
       DB2INST1_PASSWORD: db2inst1
@@ -23,12 +26,18 @@ services:
 
   redis:
     image: docker.1ms.run/library/redis:7-alpine
+    dns:
+      - 223.5.5.5
+      - 8.8.8.8
     ports:
       - "6379:6379"
 
   web:
     build:
       context: .
+    dns:
+      - 223.5.5.5
+      - 8.8.8.8
     depends_on:
       db:
         condition: service_started
