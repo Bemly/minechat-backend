@@ -1,5 +1,5 @@
 # Minechat Docker Compose
-# 用法: cd docker && docker compose up -d
+# 用法: cd server && docker compose up -d
 
 services:
   db:
@@ -28,7 +28,7 @@ services:
 
   web:
     build:
-      context: ../server
+      context: .
     depends_on:
       db:
         condition: service_started

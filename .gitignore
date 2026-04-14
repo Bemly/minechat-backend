@@ -71,8 +71,8 @@
 # Comment out if using credentials.yml.enc in frontend
 # /frontend/config/credentials.yml.enc
 
-# Ignore Docker .env
-/docker/.env
+# Docker .env
+/server/.env
 
 # IDE
 .idea/

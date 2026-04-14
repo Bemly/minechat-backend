@@ -16,7 +16,7 @@ A chat application built entirely in Ruby, using a Monorepo structure with one R
 ### Option 1: Docker (recommended)
 
 ```bash
-cd docker
+cd server
 docker compose up -d
 ```
 
@@ -27,7 +27,7 @@ This starts three containers: Rails server + Sidekiq, IBM DB2, Redis.
 
 Run database migrations:
 ```bash
-cd docker
+cd server
 docker compose exec web bin/rails db:migrate
 ```
 

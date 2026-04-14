@@ -29,7 +29,7 @@
 
 **Docker 部署（推荐）：**
 ```bash
-cd docker
+cd server
 docker compose up -d              # 启动三个容器：web、db2、redis
 docker compose exec web bin/rails db:migrate  # 数据库迁移
 ```
@@ -197,9 +197,8 @@ minechat/
 │   ├── db/migrate/                        # 数据库迁移
 │   ├── test/
 │   ├── Dockerfile
+│   ├── docker-compose.yml             # web + db2 + redis
 │   └── Gemfile
-├── docker/                            # Docker 编排
-│   └── docker-compose.yml             # web + db2 + redis
 ├── tui/                               # cli-ui 终端客户端
 ├── gui/                               # Gosu 桌面客户端
 ├── android/                           # Ruboto Android 客户端

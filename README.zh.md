@@ -16,7 +16,7 @@
 ### 方式一：Docker（推荐）
 
 ```bash
-cd docker
+cd server
 docker compose up -d
 ```
 
@@ -27,7 +27,7 @@ docker compose up -d
 
 运行数据库迁移：
 ```bash
-cd docker
+cd server
 docker compose exec web bin/rails db:migrate
 ```
 
