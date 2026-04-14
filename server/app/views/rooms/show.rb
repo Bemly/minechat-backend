@@ -4,37 +4,34 @@ class Rooms::Show < ApplicationView
     @messages = messages
   end
 
-  def view_template
-    div(class: "container") do
-      h1 { @room.name || "房间详情" }
+  def content
+    h1 { @room.name || "房间详情" }
 
-      div(class: "card") do
-        dl do
-          dt { "房间名称" }
-          dd { @room.name }
-          dt { "类型" }
-          dd { @room.room_type }
+    div(class: "mc-card") do
+      dl do
+        dt { "房间名称" }
+        dd { @room.name }
+        dt { "类型" }
+        dd { @room.room_type }
+      end
+    end
+
+    h2 { "消息" }
+    if @messages.any?
+      @messages.each do |msg|
+        div(class: "mc-message") do
+          span(class: "msg-sender") { "用户 #{msg.sender_id}" }
+          span(class: "msg-content") { msg.content }
+          span(class: "msg-time") { msg.timestamp }
         end
       end
+    else
+      p(style: "color: var(--muted); padding: 16px 0; text-align: center;") { "暂无消息" }
+    end
 
-      h2 { "消息" }
-      if @messages.any?
-        ul(class: "item-list") do
-          @messages.each do |msg|
-            li do
-              strong { "#{msg.sender_id}:" }
-              span { msg.content }
-              small { "  #{msg.timestamp}" }
-            end
-          end
-        end
-      else
-        p { "暂无消息" }
-      end
-
-      div(class: "actions") do
-        a(href: "/rooms", class: "btn") { "返回" }
-      end
+    div(class: "actions") do
+      a(href: "/rooms", class: "mc-btn") { "返回" }
+      a(href: "/rooms/#{@room.id}/edit", class: "mc-btn mc-btn-accent") { "编辑" }
     end
   end
 end

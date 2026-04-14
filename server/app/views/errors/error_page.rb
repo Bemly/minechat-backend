@@ -14,28 +14,106 @@ module Errors
         head do
           title { "#{@code} - #{@title}" }
           meta name: "viewport", content: "width=device-width,initial-scale=1"
+          meta name: "theme-color", content: "#0d0e10"
           style { CSS }
         end
         body do
-          div class: "container" do
-            h1 { @code }
-            h2 { @title }
-            p { @message }
-            a(href: "/", class: "btn") { "返回首页" }
+          div(class: "page-shell") do
+            div(class: "content-panel mc-error") do
+              div(class: "error-code") { @code }
+              div(class: "error-title") { @title }
+              p(class: "error-msg") { @message }
+              a(href: "/", class: "mc-btn mc-btn-accent") { "返回首页" }
+            end
           end
         end
       end
     end
 
     CSS = <<~CSS
+      @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font-family: -apple-system, sans-serif; background: #f5f5f5; color: #333; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-      .container { text-align: center; }
-      h1 { font-size: 80px; color: #2563eb; margin-bottom: 8px; }
-      h2 { font-size: 24px; margin-bottom: 12px; }
-      p { color: #6b7280; margin-bottom: 24px; }
-      .btn { display: inline-block; padding: 10px 24px; background: #2563eb; color: #fff; border-radius: 6px; text-decoration: none; }
-      .btn:hover { background: #1d4ed8; }
+      :root {
+        --bg: #121214;
+        --text: #efebe7;
+        --muted: #bfb6ae;
+        --accent: #88bb55;
+        --mc-btn: #737373;
+        --mc-btn-light: #9d9d9d;
+        --mc-btn-dark: #565656;
+        --mc-btn-shadow: #3a3a3a;
+      }
+      body {
+        font-family: 'VT323', 'Courier New', monospace;
+        color: var(--text);
+        background: #0d0e11;
+        min-height: 100vh;
+      }
+      .page-shell {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .content-panel {
+        width: min(500px, 100%);
+        border: 2px solid rgb(80 88 104 / .3);
+        background: #0e101499;
+        border-radius: 4px;
+        padding: 40px 32px;
+        box-shadow: inset 0 1px #ffffff0a, 0 20px 50px #0006;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .mc-error { text-align: center; }
+      .error-code {
+        font-size: clamp(4rem, 10vw, 7rem);
+        color: var(--accent);
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, .6);
+        line-height: 1;
+      }
+      .error-title {
+        font-size: 1.4rem;
+        color: var(--text);
+        margin: 10px 0 6px;
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, .5);
+      }
+      .error-msg {
+        color: var(--muted);
+        margin-bottom: 24px;
+        font-size: 1.1rem;
+      }
+      .mc-btn {
+        display: inline-block;
+        padding: 8px 18px;
+        font-family: inherit;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text);
+        background: var(--mc-btn);
+        border: 2px solid;
+        border-color: var(--mc-btn-light) var(--mc-btn-dark) var(--mc-btn-dark) var(--mc-btn-light);
+        border-radius: 2px;
+        text-decoration: none;
+        cursor: pointer;
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
+        box-shadow: 0 2px 0 var(--mc-btn-shadow);
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        transition: background .1s ease;
+      }
+      .mc-btn:hover { background: var(--mc-btn-light); color: var(--text); }
+      .mc-btn-accent {
+        background: #5a8a2e;
+        border-color: #7ab044 #4a7024 #4a7024 #7ab044;
+        box-shadow: 0 2px 0 #3a5a1a;
+        color: #fff;
+      }
+      .mc-btn-accent:hover { background: #6a9a3e; color: #fff; }
     CSS
   end
 
