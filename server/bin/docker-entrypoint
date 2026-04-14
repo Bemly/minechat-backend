@@ -1,8 +1,14 @@
 #!/bin/bash
 set -e
 
-# 启动 Sidekiq（后台）
+# 启动 Rails 服务器（前台，作为容器主进程）
+# Rails 初始化完成后，再启动 Sidekiq（后台）
+bundle exec rails server -b 0.0.0.0 &
+RAILS_PID=$!
+
+# 等 Rails 启动后再启动 Sidekiq
+sleep 5
 bundle exec sidekiq &
 
-# 启动 Rails 服务器（前台，作为容器主进程）
-exec bundle exec rails server -b 0.0.0.0
+# 等待 Rails 进程
+wait $RAILS_PID
