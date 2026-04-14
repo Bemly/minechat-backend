@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+# 启动 Sidekiq（后台）
+bundle exec sidekiq &
+
+# 启动 Rails 服务器（前台，作为容器主进程）
+exec bundle exec rails server -b 0.0.0.0

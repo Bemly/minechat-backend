@@ -11,9 +11,29 @@ A chat application built entirely in Ruby, using a Monorepo structure with one R
 
 [中文文档](README.zh.md)
 
-## Quick Start
+## Deployment
 
-### Web App
+### Option 1: Docker (recommended)
+
+```bash
+cd docker
+docker compose up -d
+```
+
+This starts three containers: Rails server + Sidekiq, IBM DB2, Redis.
+
+- Web app: http://localhost:3000
+- DB2: localhost:50000
+
+Run database migrations:
+```bash
+cd docker
+docker compose exec web bin/rails db:migrate
+```
+
+### Option 2: Native
+
+Requirements: Ruby 3.3.11, IBM DB2, Redis installed locally.
 
 ```bash
 cd server
@@ -22,15 +42,13 @@ bin/rails db:create db:migrate
 bin/rails s  # default port 3000
 ```
 
-Start Sidekiq for background jobs:
+Start Sidekiq in another terminal:
 ```bash
+cd server
 bundle exec sidekiq
 ```
 
-Or use `bin/dev` to start both server and Sidekiq:
-```bash
-bin/dev
-```
+## Clients
 
 ### TUI Client
 

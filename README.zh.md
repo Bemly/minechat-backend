@@ -11,9 +11,29 @@
 
 [English](README.md)
 
-## 快速开始
+## 部署方式
 
-### Web 应用
+### 方式一：Docker（推荐）
+
+```bash
+cd docker
+docker compose up -d
+```
+
+启动三个容器：Rails 服务器 + Sidekiq、IBM DB2、Redis。
+
+- Web 应用：http://localhost:3000
+- DB2：localhost:50000
+
+运行数据库迁移：
+```bash
+cd docker
+docker compose exec web bin/rails db:migrate
+```
+
+### 方式二：原生部署
+
+需要本地安装 Ruby 3.3.11、IBM DB2、Redis。
 
 ```bash
 cd server
@@ -22,15 +42,13 @@ bin/rails db:create db:migrate
 bin/rails s  # 默认端口 3000
 ```
 
-启动 Sidekiq 处理后台任务：
+另开一个终端启动 Sidekiq：
 ```bash
+cd server
 bundle exec sidekiq
 ```
 
-或使用 `bin/dev` 同时启动服务器和 Sidekiq：
-```bash
-bin/dev
-```
+## 客户端
 
 ### TUI 客户端
 

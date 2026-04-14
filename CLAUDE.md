@@ -26,13 +26,21 @@
 ## 常用命令
 
 ### Web 应用 (`server/`)
+
+**Docker 部署（推荐）：**
+```bash
+cd docker
+docker compose up -d              # 启动三个容器：web、db2、redis
+docker compose exec web bin/rails db:migrate  # 数据库迁移
+```
+
+**原生部署：**
 ```bash
 cd server
 bundle install
 bin/rails db:create db:migrate    # 创建并迁移数据库
 bin/rails s                        # 启动服务器 (默认 3000 端口)
-bundle exec sidekiq                # 启动 Sidekiq
-bin/dev                            # 同时启动服务器和 Sidekiq
+bundle exec sidekiq                # 另开终端启动 Sidekiq
 bin/rails test                     # 运行测试
 bin/rails test test/controllers/users_controller_test.rb  # 单个测试
 bin/rubocop                        # 代码风格检查
@@ -125,7 +133,8 @@ Member ──< belongs_to >── Room
 
 - 使用 Redis 作为消息代理
 - 配置文件: `config/sidekiq.yml`
-- 开发模式: `bin/dev` 同时启动 Rails + Sidekiq
+- Docker 模式: Sidekiq 和 Rails 在同一容器内启动（`bin/docker-entrypoint`）
+- 原生模式: `bundle exec sidekiq` 单独启动
 
 ### 数据库 (IBM DB2)
 
@@ -187,8 +196,10 @@ minechat/
 │   │   └── ...
 │   ├── db/migrate/                        # 数据库迁移
 │   ├── test/
-│   ├── Procfile                           # overmind 启动 redis + sidekiq + web
+│   ├── Dockerfile
 │   └── Gemfile
+├── docker/                            # Docker 编排
+│   └── docker-compose.yml             # web + db2 + redis
 ├── tui/                               # cli-ui 终端客户端
 ├── gui/                               # Gosu 桌面客户端
 ├── android/                           # Ruboto Android 客户端

@@ -1,0 +1,48 @@
+# Minechat Docker Compose
+# 用法: cd docker && docker compose up -d
+
+services:
+  db:
+    image: ibmcom/db2:11.5.8.0
+    environment:
+      DB2INSTANCE: db2inst1
+      DB2INST1_PASSWORD: db2inst1
+      DBNAME: MINECHAT
+      LICENSE: accept
+    volumes:
+      - db_data:/database
+    ports:
+      - "50000:50000"
+    healthcheck:
+      test: ["CMD-SHELL", "sudo -u db2inst1 db2 connect to MINECHAT > /dev/null 2>&1 || echo 'MINECHAT exists'"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 180s
+    privileged: true
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  web:
+    build:
+      context: ../server
+    depends_on:
+      db:
+        condition: service_started
+      redis:
+        condition: service_started
+    environment:
+      RAILS_ENV: production
+      REDIS_URL: redis://redis:6379/0
+      MINECHAT_DATABASE_HOST: db
+      MINECHAT_DATABASE_USER: db2inst1
+      MINECHAT_DATABASE_PASSWORD: db2inst1
+      MINECHAT_DATABASE_SCHEMA: DB2INST1
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:
