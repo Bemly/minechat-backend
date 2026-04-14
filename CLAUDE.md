@@ -139,6 +139,7 @@ Member ──< belongs_to >── Room
 ### 数据库 (IBM DB2)
 
 - 适配器: `ibm_db` gem（版本 >= 5.6.1，不存在 6.0）
+- **加载方式**: Gemfile 中 `require: false`，`config/application.rb` 中 `Bundler.require` 之后手动 `require "IBM_DB"`（大写）。小写 `require 'ibm_db'` 只加载底层驱动，不会注册 ActiveRecord adapter，且 Ruby 不会重复加载同一文件。
 - 默认端口: 50000
 - 默认 Schema: `DB2INST1`
 - 连接参数通过 `config/database.yml` 或环境变量配置

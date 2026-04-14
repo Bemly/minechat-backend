@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 7.2.3.1"
-gem "ibm_db", ">= 5.6.1", require: "active_record/connection_adapters/ibm_db_adapter"
+gem "ibm_db", ">= 5.6.1", require: false
 gem "puma", ">= 5.0"
 gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[ windows jruby ]
