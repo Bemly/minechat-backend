@@ -2,9 +2,3 @@ source "https://rubygems.org"
 
 # Ruboto Android 框架
 gem "ruboto"
-
-# HTTP 客户端，用于调用后端 API
-gem "httparty"
-
-# JSON 解析
-gem "json"

@@ -8,7 +8,7 @@
 
 | 项目 | 路径 | 说明 |
 |------|------|------|
-| Web 应用 | `app/` (根目录) | Rails 7.2.3.1 + Phlex，前端页面 + Marshal API |
+| Web 应用 | `server/` | Rails 7.2.3.1 + Phlex，前端页面 + Marshal API |
 | TUI 客户端 | `tui/` | 终端界面，使用 cli-ui |
 | GUI 客户端 | `gui/` | Gosu 2D 图形桌面应用 |
 | Android 客户端 | `android/` | Ruboto Android 应用 |
@@ -25,8 +25,9 @@
 
 ## 常用命令
 
-### Web 应用（根目录）
+### Web 应用 (`server/`)
 ```bash
+cd server
 bundle install
 bin/rails db:create db:migrate    # 创建并迁移数据库
 bin/rails s                        # 启动服务器 (默认 3000 端口)
@@ -164,33 +165,34 @@ Member ──< belongs_to >── Room
 
 ```
 minechat/
-├── app/
-│   ├── controllers/
-│   │   ├── application_controller.rb
-│   │   ├── home_controller.rb         # 首页
-│   │   ├── users_controller.rb        # 前端用户页面
-│   │   ├── rooms_controller.rb        # 前端房间页面
-│   │   ├── errors_controller.rb       # 错误页
-│   │   └── api/                       # Marshal API
-│   │       ├── users_controller.rb
-│   │       ├── rooms_controller.rb
-│   │       ├── messages_controller.rb
-│   │       └── members_controller.rb
-│   ├── models/                        # User, Room, Message, Member
-│   └── views/                         # Phlex 组件 (无 .erb)
-├── bin/
-├── config/
-│   ├── database.yml                   # IBM DB2 连接
-│   ├── sidekiq.yml                    # Sidekiq 队列配置
-│   └── ...
-├── db/migrate/                        # 数据库迁移
-├── test/
+├── server/                            # Rails Web 应用
+│   ├── app/
+│   │   ├── controllers/
+│   │   │   ├── application_controller.rb
+│   │   │   ├── home_controller.rb         # 首页
+│   │   │   ├── users_controller.rb        # 前端用户页面
+│   │   │   ├── rooms_controller.rb        # 前端房间页面
+│   │   │   ├── errors_controller.rb       # 错误页
+│   │   │   └── api/                       # Marshal API
+│   │   │       ├── users_controller.rb
+│   │   │       ├── rooms_controller.rb
+│   │   │       ├── messages_controller.rb
+│   │   │       └── members_controller.rb
+│   │   ├── models/                        # User, Room, Message, Member
+│   │   └── views/                         # Phlex 组件 (无 .erb)
+│   ├── bin/
+│   ├── config/
+│   │   ├── database.yml                   # IBM DB2 连接
+│   │   ├── sidekiq.yml                    # Sidekiq 队列配置
+│   │   └── ...
+│   ├── db/migrate/                        # 数据库迁移
+│   ├── test/
+│   ├── Procfile                           # overmind 启动 redis + sidekiq + web
+│   └── Gemfile
 ├── tui/                               # cli-ui 终端客户端
 ├── gui/                               # Gosu 桌面客户端
 ├── android/                           # Ruboto Android 客户端
-├── Procfile                           # overmind 启动 redis + sidekiq + web
-├── Gemfile
 ├── CLAUDE.md
 ├── README.md
-└── .gitignore
+└── README.zh.md
 ```

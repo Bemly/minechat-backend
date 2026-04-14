@@ -4,7 +4,7 @@
 
 | 项目 | 技术 | 说明 |
 |------|------|------|
-| Web 应用（根目录） | Rails + Phlex | 前端页面服务端渲染 + `/api/` Marshal API |
+| [server/](server/) | Rails + Phlex | 前端页面服务端渲染 + `/api/` Marshal API |
 | [tui/](tui/) | cli-ui | 终端界面客户端，交互式聊天 |
 | [gui/](gui/) | Gosu | 桌面 2D GUI 客户端，图形界面 |
 | [android/](android/) | Ruboto | Android 应用，原生界面 |
@@ -16,6 +16,7 @@
 ### Web 应用
 
 ```bash
+cd server
 bundle install
 bin/rails db:create db:migrate
 bin/rails s  # 默认端口 3000
@@ -75,15 +76,15 @@ rake install       # 安装到模拟器或设备
 ## 测试
 
 ```bash
-bin/rails test
+cd server && bin/rails test
 
 # 运行单个测试文件
-bin/rails test test/controllers/users_controller_test.rb
+cd server && bin/rails test test/controllers/users_controller_test.rb
 ```
 
 ## 代码质量
 
 ```bash
-bin/rubocop   # 代码风格检查
-bin/brakeman   # 安全扫描
+cd server && bin/rubocop   # 代码风格检查
+cd server && bin/brakeman   # 安全扫描
 ```

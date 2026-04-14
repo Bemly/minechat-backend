@@ -4,7 +4,7 @@ A chat application built entirely in Ruby, using a Monorepo structure with one R
 
 | Project | Tech | Description |
 |---------|------|-------------|
-| Web App (root) | Rails + Phlex | Web frontend with server-side rendering + Marshal API at `/api/` |
+| [server/](server/) | Rails + Phlex | Web frontend with server-side rendering + Marshal API at `/api/` |
 | [tui/](tui/) | cli-ui | Terminal UI client, interactive chat |
 | [gui/](gui/) | Gosu | Desktop 2D GUI client, graphical interface |
 | [android/](android/) | Ruboto | Android app, native UI |
@@ -16,6 +16,7 @@ A chat application built entirely in Ruby, using a Monorepo structure with one R
 ### Web App
 
 ```bash
+cd server
 bundle install
 bin/rails db:create db:migrate
 bin/rails s  # default port 3000
@@ -75,15 +76,15 @@ rake install       # install to emulator or device
 ## Testing
 
 ```bash
-bin/rails test
+cd server && bin/rails test
 
 # Run a single test file
-bin/rails test test/controllers/users_controller_test.rb
+cd server && bin/rails test test/controllers/users_controller_test.rb
 ```
 
 ## Code Quality
 
 ```bash
-bin/rubocop   # style check
-bin/brakeman   # security scan
+cd server && bin/rubocop   # style check
+cd server && bin/brakeman   # security scan
 ```
