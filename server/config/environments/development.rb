@@ -12,7 +12,7 @@ Rails.application.configure do
 
   config.server_timing = true
 
-  config.cache_store = :solid_cache
+  config.cache_store = :memory_store
 
   config.active_support.deprecation = :log
   config.active_support.disallowed_deprecation = :raise

@@ -1,4 +1,4 @@
-class CreateRooms < ActiveRecord::Migration[8.0]
+class CreateRooms < ActiveRecord::Migration[7.2]
   def change
     create_table :rooms do |t|
       t.string :name, limit: 100

@@ -7,7 +7,7 @@ Rails.application.configure do
 
   config.consider_all_requests_local = false
 
-  config.cache_store = :solid_cache
+  config.cache_store = :null_store
 
   config.public_file_server.headers = {
     "Cache-Control" => "public, max-age=#{1.hour.to_i}"

@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
 require_relative "../config/boot"
 
-ENV["SOLID_QUEUE_IN_PUMA"] = "true"
 load Gem.bin_path("puma", "puma")

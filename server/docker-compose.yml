@@ -3,7 +3,7 @@
 
 services:
   db:
-    image: ibmcom/db2:11.5.8.0
+    image: docker.1ms.run/ibmcom/db2:11.5.8.0
     environment:
       DB2INSTANCE: db2inst1
       DB2INST1_PASSWORD: db2inst1
@@ -22,7 +22,7 @@ services:
     privileged: true
 
   redis:
-    image: redis:7-alpine
+    image: docker.1ms.run/library/redis:7-alpine
     ports:
       - "6379:6379"
 

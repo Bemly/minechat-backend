@@ -1,6 +1,0 @@
-test:
-  adapter: solid_cache
-development:
-  adapter: solid_cache
-production:
-  adapter: solid_cache

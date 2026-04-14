@@ -1,4 +1,4 @@
-FROM ruby:3.3.11-slim
+FROM docker.1ms.run/library/ruby:3.3.11-slim
 
 WORKDIR /app
 
