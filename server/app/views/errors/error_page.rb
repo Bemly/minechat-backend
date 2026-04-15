@@ -10,111 +10,255 @@ module Errors
 
     def view_template
       doctype
-      html do
+      html(lang: "zh") do
         head do
           title { "#{@code} - #{@title}" }
-          meta name: "viewport", content: "width=device-width,initial-scale=1"
-          meta name: "theme-color", content: "#0d0e10"
-          link(rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=VT323&display=swap")
+          meta name: "viewport", content: "width=device-width, initial-scale=1.0"
+          link(rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Silkscreen&display=swap")
           style { CSS }
         end
         body do
+          div(class: "underwater-bg")
+          div(class: "water-overlay")
+          div(id: "bubbles-container", class: "bubbles-container")
+
           div(class: "page-shell") do
+            header(class: "mc-header") do
+              a(href: "/", class: "top-btn") { "← 返回首页" }
+              div(class: "mc-logo") { "MINECHAT" }
+              div { "" }  # Spacing
+            end
+
             div(class: "content-panel mc-error") do
+              div(class: "error-icon") { "❌" }
               div(class: "error-code") { @code }
               div(class: "error-title") { @title }
               p(class: "error-msg") { @message }
-              a(href: "/", class: "mc-btn mc-btn-accent") { "返回首页" }
+              div(class: "error-actions") do
+                a(href: "/", class: "mc-btn mc-btn-accent") { "返回首页" }
+              end
             end
           end
+
+          script { BUBBLE_JS }
         end
       end
     end
 
     CSS = <<~CSS
       * { margin: 0; padding: 0; box-sizing: border-box; }
+
       :root {
-        --bg: #121214;
-        --text: #efebe7;
-        --muted: #bfb6ae;
-        --accent: #88bb55;
-        --mc-btn: #737373;
-        --mc-btn-light: #9d9d9d;
-        --mc-btn-dark: #565656;
-        --mc-btn-shadow: #3a3a3a;
+        --mc-border: #1e1e1e;
+        --mc-bg-default: #f0f0f0;
+        --mc-bg-active: #4ade80;
+        --mc-text-shadow: 2px 2px 0px rgba(0,0,0,0.7);
       }
+
       body {
-        font-family: 'VT323', 'Courier New', monospace;
-        color: var(--text);
-        background: #0d0e11;
+        font-family: 'Silkscreen', sans-serif;
+        margin: 0;
+        overflow: hidden;
+        background-color: #0b4b6c;
+        user-select: none;
         min-height: 100vh;
       }
+
+      /* 动态水下背景 */
+      .underwater-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(180deg, #1b6ca8 0%, #0b4b6c 50%, #062b3d 100%);
+        z-index: -2;
+        pointer-events: none;
+      }
+
+      /* 模拟水中的光影和雾气 */
+      .water-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 80%);
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      /* 页面容器 */
       .page-shell {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+        padding: clamp(10px, 2.5vw, 20px);
+        position: relative;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      /* 顶部 Header */
+      .mc-header {
+        position: relative;
+        z-index: 10;
+        width: min(900px, 100%);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-top: clamp(8px, 2vh, 16px);
+      }
+
+      .mc-logo {
+        font-size: clamp(2rem, 5vw, 4.5rem);
+        color: #d1d1d1;
+        text-align: center;
+        letter-spacing: 2px;
+        text-shadow:
+          -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
+          4px 4px 0px #000,
+          0px 6px 0px rgba(0,0,0,0.5);
+        transform: scaleY(0.9);
+      }
+
+      /* 顶部按钮风格 */
+      .top-btn {
+        background: white;
+        border: 2px solid var(--mc-border);
+        padding: 6px 14px;
+        display: inline-block;
+        font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+        box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.8);
+        cursor: pointer;
+        text-decoration: none;
+        color: #1a1a1a;
+        transition: transform 0.1s;
+      }
+      .top-btn:active { transform: scale(0.95); }
+      .top-btn:hover { filter: brightness(0.9); }
+
+      /* Content panel */
+      .content-panel {
+        position: relative;
+        z-index: 10;
+        width: min(500px, 100%);
+        margin: 20px auto;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        padding: 48px 32px;
+        background: rgba(240, 240, 240, 0.6);
+        border: 3px solid var(--mc-border);
+        box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 4px 16px rgba(0,0,0,0.3);
       }
-      .content-panel {
-        width: min(500px, 100%);
-        border: 2px solid rgb(80 88 104 / .3);
-        background: #0e101499;
-        border-radius: 4px;
-        padding: 40px 32px;
-        box-shadow: inset 0 1px #ffffff0a, 0 20px 50px #0006;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-      }
+
       .mc-error { text-align: center; }
-      .error-code {
-        font-size: clamp(4rem, 10vw, 7rem);
-        color: var(--accent);
-        text-shadow: 3px 3px 0 rgba(0, 0, 0, .6);
-        line-height: 1;
+
+      .error-icon {
+        font-size: 4rem;
+        margin-bottom: 16px;
       }
+
+      .error-code {
+        font-size: clamp(4rem, 10vw, 6rem);
+        color: #4ade80;
+        text-shadow: var(--mc-text-shadow);
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+
       .error-title {
-        font-size: 1.4rem;
-        color: var(--text);
-        margin: 10px 0 6px;
+        font-size: clamp(1.4rem, 3vw, 1.8rem);
+        color: #d1d1d1;
+        margin: 8px 0 16px;
         text-transform: uppercase;
         letter-spacing: .1em;
-        text-shadow: 2px 2px 0 rgba(0, 0, 0, .5);
+        text-shadow: var(--mc-text-shadow);
       }
+
       .error-msg {
-        color: var(--muted);
-        margin-bottom: 24px;
-        font-size: 1.1rem;
+        color: rgba(209, 209, 209, 0.7);
+        margin-bottom: 32px;
+        font-size: 1rem;
+        line-height: 1.5;
       }
+
+      .error-actions {
+        display: flex;
+      }
+
       .mc-btn {
         display: inline-block;
-        padding: 8px 18px;
+        padding: 10px 24px;
         font-family: inherit;
         font-size: 1rem;
         font-weight: 700;
-        color: var(--text);
-        background: var(--mc-btn);
-        border: 2px solid;
-        border-color: var(--mc-btn-light) var(--mc-btn-dark) var(--mc-btn-dark) var(--mc-btn-light);
-        border-radius: 2px;
+        color: #1a1a1a;
+        background: var(--mc-bg-default);
+        border: 3px solid var(--mc-border);
         text-decoration: none;
         cursor: pointer;
-        text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
-        box-shadow: 0 2px 0 var(--mc-btn-shadow);
+        text-shadow: 1px 1px 0 rgba(255, 255, 255, .5);
+        box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 4px 10px rgba(0,0,0,0.3);
         text-transform: uppercase;
         letter-spacing: .04em;
-        transition: background .1s ease;
+        transition: transform 0.1s, filter 0.1s;
       }
-      .mc-btn:hover { background: var(--mc-btn-light); color: var(--text); }
+      .mc-btn:hover {
+        filter: brightness(0.95);
+        transform: translateY(-2px);
+      }
+      .mc-btn:active {
+        transform: translateY(1px);
+        box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 2px 2px 5px rgba(0,0,0,0.3);
+      }
+
       .mc-btn-accent {
-        background: #5a8a2e;
-        border-color: #7ab044 #4a7024 #4a7024 #7ab044;
-        box-shadow: 0 2px 0 #3a5a1a;
-        color: #fff;
+        background: #4ade80;
       }
-      .mc-btn-accent:hover { background: #6a9a3e; color: #fff; }
+      .mc-btn-accent:hover {
+        background: #22c55e;
+      }
+
+      /* 漂浮的粒子/气泡 */
+      .bubble {
+        position: fixed;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        animation: float-up infinite linear;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      @keyframes float-up {
+        0% { transform: translateY(100vh) scale(1); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+      }
+
+      @media (max-width: 640px) {
+        .mc-header { flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .content-panel { padding: 32px 20px; }
+      }
     CSS
+
+    BUBBLE_JS = <<~JS
+      // 生成水下背景的粒子气泡
+      const bubblesContainer = document.getElementById('bubbles-container');
+      const bubbleCount = 20;
+      for (let i = 0; i < bubbleCount; i++) {
+        let bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+        bubble.style.width = `${Math.random() * 10 + 2}px`;
+        bubble.style.height = `${Math.random() * 10 + 2}px`;
+        bubble.style.left = `${Math.random() * 100}vw`;
+        bubble.style.animationDuration = `${Math.random() * 10 + 10}s`;
+        bubble.style.animationDelay = `${Math.random() * 15}s`;
+        bubblesContainer.appendChild(bubble);
+      }
+    JS
   end
 
   class NotFound < ErrorPage

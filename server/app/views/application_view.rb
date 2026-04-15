@@ -3,17 +3,21 @@ class ApplicationView < Phlex::HTML
 
   def view_template
     doctype
-    html do
+    html(lang: "zh") do
       head do
-        title { "Minechat" }
-        meta name: "viewport", content: "width=device-width,initial-scale=1"
-        meta name: "theme-color", content: "#0d0e10"
-        link(rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=VT323&display=swap")
+        meta charset: "UTF-8"
+        meta name: "viewport", content: "width=device-width, initial-scale=1.0"
+        title { "Minechat - OreUI" }
+        link(rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Silkscreen&display=swap")
         style { BASE_CSS }
       end
       body do
+        div(class: "underwater-bg")
+        div(class: "water-overlay")
+        div(id: "bubbles-container", class: "bubbles-container")
+
         div(class: "page-shell") do
-          nav(class: "mc-nav") { render NavBar }
+          header(class: "mc-header") { render Header }
           flash_messages
           div(class: "content-panel") { content }
         end
@@ -29,170 +33,169 @@ class ApplicationView < Phlex::HTML
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #121214;
-      --bg-2: #1a1b1f;
-      --panel: rgb(23 25 30 / .55);
-      --stone: #c3bcb5;
-      --text: #efebe7;
-      --muted: #bfb6ae;
-      --line: rgb(65 71 84 / .4);
-      --accent: #88bb55;
-      --accent-2: #709944;
-      --danger: #ff7d7d;
-      --mc-btn: #737373;
-      --mc-btn-light: #9d9d9d;
-      --mc-btn-dark: #565656;
-      --mc-btn-shadow: #3a3a3a;
+      --mc-border: #1e1e1e;
+      --mc-bg-default: #f0f0f0;
+      --mc-bg-active: #4ade80;
+      --mc-text-shadow: 2px 2px 0px rgba(0,0,0,0.7);
+      --mc-text: #1a1a1a;
+      --mc-muted: #666666;
     }
 
     body {
-      font-family: 'VT323', 'Courier New', monospace;
-      color: var(--text);
-      background: #0d0e11;
+      font-family: 'Silkscreen', sans-serif;
+      margin: 0;
+      overflow: hidden;
+      background-color: #0b4b6c;
+      user-select: none;
+      color: var(--mc-text);
       min-height: 100vh;
-      overflow-y: auto;
-      scrollbar-width: none;
-      font-size: 18px;
     }
-    body::-webkit-scrollbar { display: none; }
 
+    /* 动态水下背景 */
+    .underwater-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(180deg, #1b6ca8 0%, #0b4b6c 50%, #062b3d 100%);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* 模拟水中的光影和雾气 */
+    .water-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 80%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* 页面容器 */
     .page-shell {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       padding: clamp(10px, 2.5vw, 20px);
       position: relative;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
-    /* Minecraft dirt block texture pattern overlay */
-    .page-shell::before {
-      content: "";
-      position: fixed;
-      top: 0; right: 0; bottom: 0; left: 0;
-      background-image:
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 3px,
-          rgba(139, 119, 80, 0.015) 3px,
-          rgba(139, 119, 80, 0.015) 4px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 3px,
-          rgba(139, 119, 80, 0.015) 3px,
-          rgba(139, 119, 80, 0.015) 4px
-        );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Navigation */
-    .mc-nav {
+    /* 顶部 Header */
+    .mc-header {
       position: relative;
-      z-index: 2;
-      width: min(920px, 100%);
+      z-index: 10;
+      width: min(900px, 100%);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-top: clamp(8px, 2vh, 16px);
+    }
+
+    .mc-logo {
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      color: #d1d1d1;
+      text-align: center;
+      letter-spacing: 2px;
+      text-shadow:
+        -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
+        4px 4px 0px #000,
+        0px 6px 0px rgba(0,0,0,0.5);
+      transform: scaleY(0.9);
+    }
+
+    .mc-nav {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 12px 16px;
-      margin-top: clamp(10px, 3vh, 32px);
-      background: #0e101499;
-      border: 2px solid rgb(80 88 104 / .3);
-      border-radius: 4px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: inset 0 1px #ffffff0a, 0 20px 50px #0006;
+      gap: 8px;
     }
 
     .mc-nav a {
-      color: var(--stone);
+      color: var(--mc-text);
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: clamp(0.9rem, 1.2vw, 1rem);
       font-weight: 700;
-      padding: 6px 16px;
-      border: 2px solid transparent;
-      border-radius: 2px;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
+      padding: 6px 14px;
       text-transform: uppercase;
       letter-spacing: .06em;
-      transition: color .12s ease, border-color .12s ease, background .12s ease;
+      transition: color .12s ease;
     }
 
-    .mc-nav a:hover {
-      color: var(--accent);
-      border-color: rgb(136 187 85 / .4);
-      background: rgba(136, 187, 85, .08);
-    }
+    .mc-nav a:hover { color: #4ade80; }
 
     .mc-nav .nav-logo {
-      font-size: 1.4rem;
-      color: var(--accent);
+      font-size: 1.2rem;
+      color: #4ade80;
       margin-right: auto;
       text-shadow: 2px 2px 0 rgba(0, 0, 0, .6);
       letter-spacing: .08em;
     }
 
-    .mc-nav .nav-logo:hover {
-      color: #aadd66;
-      border-color: transparent;
-      background: none;
-    }
-
     /* Content panel */
     .content-panel {
       position: relative;
-      z-index: 1;
-      width: min(920px, 100%);
-      margin-top: 12px;
-      border: 2px solid rgb(80 88 104 / .3);
-      background: #0e101499;
-      border-radius: 4px;
-      padding: 24px clamp(14px, 3.5vw, 32px) 28px;
-      box-shadow: inset 0 1px #ffffff0a, 0 20px 50px #0006;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      z-index: 10;
+      width: min(900px, 100%);
+      margin: 12px auto;
+      flex: 1;
+    }
+
+    /* 漂浮的粒子/气泡 */
+    .bubble {
+      position: fixed;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: float-up infinite linear;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes float-up {
+      0% { transform: translateY(100vh) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
     }
 
     /* Headings */
     h1 {
       text-align: center;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      color: var(--text);
-      margin-bottom: 18px;
-      text-shadow: 2px 2px 0 rgba(0, 0, 0, .5);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: #d1d1d1;
+      margin-bottom: clamp(12px, 2vh, 20px);
+      text-shadow: var(--mc-text-shadow);
       text-transform: uppercase;
       letter-spacing: .1em;
     }
 
     h2 {
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      color: var(--stone);
-      margin: 20px 0 10px;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: #d1d1d1;
+      margin: 16px 0 12px;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, .8);
       text-transform: uppercase;
       letter-spacing: .08em;
-      border-bottom: 2px solid var(--line);
-      padding-bottom: 6px;
+      border-bottom: 3px solid rgba(30, 30, 30, 0.6);
+      padding-bottom: 8px;
     }
 
     h3 {
-      font-size: 1.1rem;
-      color: var(--accent);
-      margin: 14px 0 8px;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
+      font-size: 1rem;
+      color: #4ade80;
+      margin: 12px 0 8px;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, .8);
     }
 
     /* Links */
     a {
-      color: var(--accent);
+      color: #4ade80;
       text-decoration: none;
       transition: color .12s ease;
     }
-    a:hover { color: #aadd66; }
+    a:hover { color: #22c55e; }
 
     /* Minecraft-style button */
     .mc-btn {
@@ -201,298 +204,351 @@ class ApplicationView < Phlex::HTML
       font-family: inherit;
       font-size: 1rem;
       font-weight: 700;
-      color: var(--text);
-      background: var(--mc-btn);
-      border: 2px solid;
-      border-color: var(--mc-btn-light) var(--mc-btn-dark) var(--mc-btn-dark) var(--mc-btn-light);
-      border-radius: 2px;
+      color: #1a1a1a;
+      background: var(--mc-bg-default);
+      border: 3px solid var(--mc-border);
       text-decoration: none;
       cursor: pointer;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
-      box-shadow: 0 2px 0 var(--mc-btn-shadow);
+      text-shadow: 1px 1px 0 rgba(255, 255, 255, .5);
+      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 4px 10px rgba(0,0,0,0.3);
       text-transform: uppercase;
       letter-spacing: .04em;
-      transition: background .1s ease, transform 80ms ease;
+      transition: transform 0.1s, filter 0.1s;
     }
     .mc-btn:hover {
-      background: var(--mc-btn-light);
-      color: var(--text);
+      filter: brightness(0.95);
+      transform: translateY(-2px);
     }
     .mc-btn:active {
       transform: translateY(1px);
-      border-color: var(--mc-btn-dark) var(--mc-btn-light) var(--mc-btn-light) var(--mc-btn-dark);
-      box-shadow: none;
+      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 2px 2px 5px rgba(0,0,0,0.3);
     }
 
     /* Green accent button */
     .mc-btn-accent {
-      background: #5a8a2e;
-      border-color: #7ab044 #4a7024 #4a7024 #7ab044;
-      box-shadow: 0 2px 0 #3a5a1a;
-      color: #fff;
+      background: #4ade80;
+      color: #1a1a1a;
     }
     .mc-btn-accent:hover {
-      background: #6a9a3e;
-      color: #fff;
-    }
-    .mc-btn-accent:active {
-      border-color: #4a7024 #7ab044 #7ab044 #4a7024;
+      background: #22c55e;
     }
 
     /* Red danger button */
     .mc-btn-danger {
-      background: #8b2020;
-      border-color: #b04040 #6a1818 #6a1818 #b04040;
-      box-shadow: 0 2px 0 #4a1010;
+      background: #ef4444;
+      border-color: #b91c1c;
     }
     .mc-btn-danger:hover {
-      background: #a03030;
-      color: #fff;
-    }
-    .mc-btn-danger:active {
-      border-color: #6a1818 #b04040 #b04040 #6a1818;
+      background: #dc2626;
     }
 
-    /* List items — repo-link-row style */
-    .mc-list {
+    /* OreUI 风格卡片 */
+    .ore-card {
+      background: var(--mc-bg-default);
+      border: 3px solid var(--mc-border);
+      border-radius: 0;
+      padding: 20px 24px;
+      margin: 12px 0;
+      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+
+    .ore-card:hover {
+      transform: translateY(-4px);
+      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 6px 8px 16px rgba(0,0,0,0.4);
+    }
+
+    .ore-card.active {
+      background: var(--mc-bg-active);
+      border-color: #000;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    /* 顶部按钮风格 */
+    .top-btn {
+      background: white;
+      border: 2px solid var(--mc-border);
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.8);
+      cursor: pointer;
+      transition: transform 0.1s, filter 0.1s;
+      text-decoration: none;
+      color: #1a1a1a;
+    }
+    .top-btn:active {
+      transform: scale(0.95);
+    }
+    .top-btn:hover {
+      filter: brightness(0.9);
+    }
+
+    /* 最近游玩区域 */
+    .recent-section {
+      margin-top: 24px;
+    }
+
+    .recent-title {
+      color: #d1d1d1;
+      font-size: clamp(0.9rem, 1.4vw, 1rem);
+      text-shadow: var(--mc-text-shadow);
+      margin-bottom: 12px;
+      padding-left: 4px;
+    }
+
+    .recent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .recent-card {
+      width: 100%;
+      height: 110px;
+      background: #555;
+      border: 2px solid var(--mc-border);
+      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.3), inset 2px 2px 0px rgba(255,255,255,0.2);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .recent-card:hover {
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* List items */
+    .ore-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 8px;
     }
 
-    .mc-list-item {
+    .ore-list-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      background: #3232328c;
-      border: 2px solid rgb(80 80 80 / .45);
-      border-radius: 2px;
-      box-shadow: inset 0 1px #ffffff0f, inset 0 -2px #0003, 0 2px 6px #00000040;
-      transition: background .12s ease, border-color .12s ease, transform 80ms ease;
+      padding: 14px 18px;
+      background: var(--mc-bg-default);
+      border: 3px solid var(--mc-border);
+      border-radius: 0;
+      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 2px 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.12s, box-shadow 0.12s;
       text-decoration: none;
-      color: inherit;
+      color: var(--mc-text);
+      gap: 12px;
     }
 
-    .mc-list-item:hover {
-      background: #46464699;
-      border-color: #88bb5580;
-      transform: translateY(-1px);
-      box-shadow: inset 0 1px #ffffff14, inset 0 -2px #00000040, 0 4px 12px #00000059;
-      color: #fff;
+    .ore-list-item:hover {
+      transform: translateY(-2px);
+      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 6px 12px rgba(0,0,0,0.3);
+      border-color: #4ade80;
     }
 
-    .mc-list-item:active {
-      transform: translateY(1px);
-      box-shadow: inset 0 2px #0000004d, 0 1px 2px #0003;
-    }
-
-    .mc-list-item .item-name {
+    .ore-list-item .item-name {
       flex: 1;
-      font-size: 1.05rem;
       font-weight: 700;
-      color: var(--text);
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
     }
 
-    .mc-list-item:hover .item-name { color: #fff; }
-
-    .mc-list-item .item-tag {
-      flex-shrink: 0;
-      padding: 2px 8px;
-      font-size: .85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: var(--muted);
-      border: 1px solid rgb(100 100 100 / .4);
-      border-radius: 2px;
-    }
-
-    .mc-list-item .item-badge {
+    .ore-list-item .item-tag {
       flex-shrink: 0;
       padding: 4px 10px;
-      font-size: .85rem;
-      font-weight: 700;
-      color: var(--accent);
-      background: rgba(136, 187, 85, .12);
-      border: 2px solid;
-      border-color: rgb(136 187 85 / .4) rgb(80 120 50 / .4) rgb(80 120 50 / .4) rgb(136 187 85 / .4);
-      border-radius: 2px;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
+      font-size: 0.85rem;
+      color: var(--mc-muted);
+      border: 2px solid var(--mc-border);
     }
 
-    /* Cards (detail panels) */
-    .mc-card {
-      background: rgba(30, 32, 38, .7);
-      border: 2px solid rgb(80 88 104 / .3);
-      border-radius: 4px;
-      padding: 18px 20px;
-      margin: 12px 0;
-      box-shadow: inset 0 1px #ffffff0a, 0 4px 16px #0004;
-    }
-
-    .mc-card dl { }
-    .mc-card dt {
+    .ore-list-item .item-badge {
+      flex-shrink: 0;
+      padding: 6px 12px;
+      font-size: 0.85rem;
       font-weight: 700;
-      color: var(--accent);
-      margin-top: 10px;
-      text-transform: uppercase;
-      font-size: .9rem;
-      letter-spacing: .06em;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
-    }
-    .mc-card dt:first-child { margin-top: 0; }
-    .mc-card dd {
-      margin-left: 0;
-      color: var(--stone);
-      padding: 4px 0;
-      font-size: 1.05rem;
+      color: #1a1a1a;
+      background: #4ade80;
+      border: 2px solid var(--mc-border);
     }
 
     /* Forms */
     .mc-form .form-group {
-      margin: 14px 0;
+      margin: 16px 0;
     }
 
     .mc-form label {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       font-weight: 700;
-      font-size: .95rem;
-      color: var(--stone);
+      font-size: 0.95rem;
+      color: #d1d1d1;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
       text-transform: uppercase;
-      letter-spacing: .06em;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
+      letter-spacing: .04em;
     }
 
     .mc-form input[type="text"],
     .mc-form input[type="email"],
     .mc-form input[type="password"],
-    .mc-form textarea {
+    .mc-form textarea,
+    .mc-form select {
       width: 100%;
-      border: 2px solid #3e4452;
-      border-radius: 2px;
-      padding: 10px 14px;
+      border: 3px solid var(--mc-border);
+      border-radius: 0;
+      padding: 12px 16px;
       font-size: 1rem;
       font-family: inherit;
-      color: var(--text);
-      background: rgba(0, 0, 0, .5);
+      color: #1a1a1a;
+      background: var(--mc-bg-default);
       outline: none;
-      box-shadow: inset 0 2px rgba(0, 0, 0, .3), inset 0 -1px #ffffff0a;
-      transition: border-color .16s ease, box-shadow .16s ease;
+      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7);
+      transition: border-color .16s ease;
     }
 
     .mc-form input:focus,
-    .mc-form textarea:focus {
-      border-color: var(--accent);
-      box-shadow: inset 0 2px rgba(0, 0, 0, .3), 0 0 0 2px rgba(136, 187, 85, .33);
+    .mc-form textarea:focus,
+    .mc-form select:focus {
+      border-color: #4ade80;
+      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7), 0 0 0 3px rgba(74, 222, 128, 0.3);
     }
 
     /* Flash messages */
     .flash-notice {
       position: relative;
-      z-index: 2;
-      width: min(920px, 100%);
-      background: rgba(136, 187, 85, .12);
-      border: 2px solid rgba(136, 187, 85, .4);
-      color: var(--accent);
-      padding: 10px 16px;
-      border-radius: 2px;
-      margin-top: 8px;
+      z-index: 10;
+      width: min(900px, 100%);
+      margin: 8px auto;
+      background: rgba(74, 222, 128, 0.2);
+      border: 3px solid #4ade80;
+      color: #4ade80;
+      padding: 14px 18px;
       font-weight: 700;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7);
     }
 
     .flash-alert {
       position: relative;
-      z-index: 2;
-      width: min(920px, 100%);
-      background: rgba(255, 125, 125, .1);
-      border: 2px solid rgba(255, 125, 125, .35);
-      color: var(--danger);
-      padding: 10px 16px;
-      border-radius: 2px;
-      margin-top: 8px;
+      z-index: 10;
+      width: min(900px, 100%);
+      margin: 8px auto;
+      background: rgba(239, 68, 68, 0.2);
+      border: 3px solid #ef4444;
+      color: #ef4444;
+      padding: 14px 18px;
       font-weight: 700;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7);
     }
 
     /* Actions row */
     .actions {
-      margin-top: 20px;
+      margin-top: 24px;
       display: flex;
-      gap: 8px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    /* Messages list */
+    /* Messages */
     .mc-message {
-      padding: 10px 14px;
-      background: rgba(30, 32, 38, .5);
-      border: 2px solid rgb(60 64 76 / .4);
-      border-radius: 2px;
-      margin-bottom: 4px;
-      box-shadow: inset 0 1px #ffffff06;
+      padding: 14px 18px;
+      background: rgba(240, 240, 240, 0.8);
+      border: 3px solid var(--mc-border);
+      margin-bottom: 8px;
+      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7);
     }
 
     .mc-message .msg-sender {
-      color: var(--accent);
+      color: #4ade80;
       font-weight: 700;
-      margin-right: 8px;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
+      margin-right: 10px;
     }
 
     .mc-message .msg-content {
-      color: var(--text);
+      color: #1a1a1a;
     }
 
     .mc-message .msg-time {
-      color: var(--muted);
-      font-size: .85rem;
-      margin-left: 8px;
+      color: var(--mc-muted);
+      font-size: 0.85rem;
+      margin-left: 10px;
+    }
+
+    /* Card detail */
+    .ore-card dt {
+      font-weight: 700;
+      color: #4ade80;
+      margin-top: 14px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: .06em;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+    }
+    .ore-card dt:first-child { margin-top: 0; }
+    .ore-card dd {
+      margin-left: 0;
+      color: #1a1a1a;
+      padding: 6px 0;
+      font-size: 1.05rem;
     }
 
     /* Error page */
     .mc-error {
       text-align: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
     }
 
     .mc-error .error-code {
-      font-size: clamp(4rem, 10vw, 7rem);
-      color: var(--accent);
-      text-shadow: 3px 3px 0 rgba(0, 0, 0, .6);
+      font-size: clamp(4rem, 12vw, 8rem);
+      color: #4ade80;
+      text-shadow: var(--mc-text-shadow);
       line-height: 1;
     }
 
     .mc-error .error-title {
-      font-size: 1.4rem;
-      color: var(--text);
-      margin: 10px 0 6px;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: #d1d1d1;
+      margin: 16px 0 12px;
       text-transform: uppercase;
       letter-spacing: .1em;
+      text-shadow: var(--mc-text-shadow);
     }
 
     .mc-error .error-msg {
-      color: var(--muted);
-      margin-bottom: 24px;
+      color: rgba(209, 209, 209, 0.7);
+      margin-bottom: 32px;
     }
 
     /* Responsive */
-    @media (max-width: 560px) {
-      .mc-nav { flex-wrap: wrap; gap: 4px; padding: 10px 12px; }
-      .mc-nav .nav-logo { width: 100%; margin-right: 0; margin-bottom: 4px; }
-      .content-panel { padding: 18px 14px 22px; }
-      .mc-list-item { padding: 10px 12px; gap: 8px; }
+    @media (max-width: 640px) {
+      .mc-header { flex-wrap: wrap; gap: 12px; justify-content: center; }
+      ._mc-nav { order: 2; width: 100%; justify-content: center; }
+      .card-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
     }
   CSS
 
-  class NavBar < Phlex::HTML
+  class Header < Phlex::HTML
     def view_template
-      a(href: "/", class: "nav-logo") { "⛏ Minechat" }
-      a(href: "/users") { "用户" }
-      a(href: "/rooms") { "房间" }
+      div(class: "top-btn") do
+        span(class: "text-blue-600 font-bold text-lg bg-gray-200 border border-gray-400 w-5 h-5 flex items-center justify-center") { "?" }
+        plain "Help"
+      end
+
+      div(class: "mc-logo") { "MINECHAT" }
+
+      div(class: "mc-nav") do
+        a(href: "/", class: "nav-logo") { "⛏" }
+        a(href: "/users") { "用户" }
+        a(href: "/rooms") { "房间" }
+      end
     end
   end
 
@@ -500,10 +556,18 @@ class ApplicationView < Phlex::HTML
 
   def flash_messages
     if helpers.flash[:notice]
-      div(class: "flash-notice") { helpers.flash[:notice] }
+      div(class: "flash-notice") do
+        ul do
+          Array(helpers.flash[:notice]).each { |msg| li { msg } }
+        end
+      end
     end
     if helpers.flash[:alert]
-      div(class: "flash-alert") { helpers.flash[:alert] }
+      div(class: "flash-alert") do
+        ul do
+          Array(helpers.flash[:alert]).each { |msg| li { msg } }
+        end
+      end
     end
   end
 end
