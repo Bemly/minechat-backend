@@ -35,17 +35,17 @@ class ApplicationView < Phlex::HTML
     :root {
       --mc-border: #1e1e1e;
       --mc-bg-default: #313235;
-      --mc-bg-active: #3c8527;
+      --mc-bg-active: #c25;
       --mc-text-shadow: 2px 2px 0px rgba(0,0,0,0.7);
       --mc-text: #e0e0e0;
       --mc-muted: #999999;
-      --mc-green: #3c8527;
-      --mc-green-hover: #4ca832;
-      --mc-green-disabled: #2b5c1c;
+      --mc-accent: #c25;
+      --mc-accent-hover: #e36;
+      --mc-accent-disabled: #8a1a3a;
       --mc-gray: #c6c6c6;
-      --mc-gray-hover: #ffffff;
+      --mc-gray-hover: white;
       --mc-gray-disabled: #8b8b8b;
-      --mc-focus-ring: #ffffff;
+      --mc-focus-ring: white;
     }
 
     body {
@@ -131,11 +131,11 @@ class ApplicationView < Phlex::HTML
       transition: color .12s ease;
     }
 
-    .mc-nav a:hover { color: var(--mc-green-hover); }
+    .mc-nav a:hover { color: var(--mc-accent-hover); }
 
     .mc-nav .nav-logo {
       font-size: 1.2rem;
-      color: var(--mc-green-hover);
+      color: var(--mc-accent-hover);
       margin-right: auto;
       text-shadow: 2px 2px 0 rgba(0, 0, 0, .6);
       letter-spacing: .08em;
@@ -191,18 +191,18 @@ class ApplicationView < Phlex::HTML
 
     h3 {
       font-size: 1rem;
-      color: var(--mc-green-hover);
+      color: var(--mc-accent-hover);
       margin: 12px 0 8px;
       text-shadow: 1px 1px 0 rgba(0, 0, 0, .8);
     }
 
     /* Links */
     a {
-      color: var(--mc-green-hover);
+      color: var(--mc-accent-hover);
       text-decoration: none;
       transition: color .12s ease;
     }
-    a:hover { color: var(--mc-green); }
+    a:hover { color: var(--mc-accent); }
     a.mc-btn:not(.mc-btn-accent):not(.mc-btn-danger),
     a.mc-btn:not(.mc-btn-accent):not(.mc-btn-danger):hover,
     a.mc-btn:not(.mc-btn-accent):not(.mc-btn-danger):active,
@@ -247,8 +247,8 @@ class ApplicationView < Phlex::HTML
 
     /* Green accent button — Primary */
     .mc-btn-accent {
-      background: var(--mc-green);
-      color: #ffffff;
+      background: var(--mc-accent);
+      color: white;
       text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
       box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
     }
@@ -257,8 +257,8 @@ class ApplicationView < Phlex::HTML
       outline-offset: 2px;
     }
     .mc-btn-accent:active {
-      background: var(--mc-green-disabled);
-      color: #ffffff;
+      background: var(--mc-accent-disabled);
+      color: white;
       box-shadow: inset 2px 2px 0px rgba(0,0,0,0.4);
     }
     .mc-btn-accent:focus {
@@ -266,7 +266,7 @@ class ApplicationView < Phlex::HTML
       outline-offset: 2px;
     }
     .mc-btn-accent:disabled {
-      background: var(--mc-green-disabled);
+      background: var(--mc-accent-disabled);
       color: #aaaaaa;
       cursor: not-allowed;
     }
@@ -416,8 +416,8 @@ class ApplicationView < Phlex::HTML
       padding: 6px 12px;
       font-size: 0.85rem;
       font-weight: 700;
-      color: #ffffff;
-      background: var(--mc-green);
+      color: white;
+      background: var(--mc-accent);
       border: 2px solid var(--mc-border);
     }
 
@@ -468,8 +468,8 @@ class ApplicationView < Phlex::HTML
       width: min(900px, 100%);
       margin: 8px auto;
       background: rgba(60, 133, 39, 0.2);
-      border: 2px solid var(--mc-green);
-      color: var(--mc-green-hover);
+      border: 2px solid var(--mc-accent);
+      color: var(--mc-accent-hover);
       padding: 14px 18px;
       font-weight: 700;
       text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
@@ -508,7 +508,7 @@ class ApplicationView < Phlex::HTML
     }
 
     .mc-message .msg-sender {
-      color: var(--mc-green-hover);
+      color: var(--mc-accent-hover);
       font-weight: 700;
       margin-right: 10px;
     }
@@ -526,7 +526,7 @@ class ApplicationView < Phlex::HTML
     /* Card detail */
     .ore-card dt {
       font-weight: 700;
-      color: var(--mc-green-hover);
+      color: var(--mc-accent-hover);
       margin-top: 14px;
       text-transform: uppercase;
       font-size: 0.9rem;
@@ -549,7 +549,7 @@ class ApplicationView < Phlex::HTML
 
     .mc-error .error-code {
       font-size: clamp(4rem, 12vw, 8rem);
-      color: var(--mc-green-hover);
+      color: var(--mc-accent-hover);
       text-shadow: var(--mc-text-shadow);
       line-height: 1;
     }

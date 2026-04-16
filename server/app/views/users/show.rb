@@ -66,7 +66,7 @@ class Users::Show < ApplicationView
     .user-avatar-large {
       width: 100px;
       height: 100px;
-      background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+      background: linear-gradient(135deg, #c25 0%, #e36 100%);
       border: 2px solid var(--mc-border);
       display: flex;
       align-items: center;
@@ -103,7 +103,7 @@ class Users::Show < ApplicationView
     }
 
     .status-online {
-      color: #22c55e;
+      color: #e36;
       font-weight: 700;
       font-size: 0.9rem;
     }
@@ -121,7 +121,7 @@ class Users::Show < ApplicationView
     .details-card dt {
       margin-top: 20px;
       font-size: 0.9rem;
-      color: var(--mc-green-hover);
+      color: var(--mc-accent-hover);
     }
 
     .details-card dt:first-child {

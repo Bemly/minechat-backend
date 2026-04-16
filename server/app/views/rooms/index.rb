@@ -104,7 +104,7 @@ class Rooms::Index < ApplicationView
 
     .room-card:hover .room-arrow {
       transform: translateX(4px);
-      color: var(--mc-green-hover);
+      color: var(--mc-accent-hover);
     }
 
     .empty-state {

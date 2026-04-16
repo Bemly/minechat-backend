@@ -51,12 +51,13 @@ module Errors
       :root {
         --mc-border: #1e1e1e;
         --mc-bg-default: #313235;
-        --mc-bg-active: #3c8527;
+        --mc-bg-active: #c25;
         --mc-text-shadow: 2px 2px 0px rgba(0,0,0,0.7);
-        --mc-green: #3c8527;
-        --mc-green-hover: #4ca832;
+        --mc-accent: #c25;
+        --mc-accent-hover: #e36;
+        --mc-accent-disabled: #8a1a3a;
         --mc-gray: #c6c6c6;
-        --mc-focus-ring: #ffffff;
+        --mc-focus-ring: white;
       }
 
       body {
@@ -166,7 +167,7 @@ module Errors
 
       .error-code {
         font-size: clamp(4rem, 10vw, 6rem);
-        color: var(--mc-green-hover);
+        color: var(--mc-accent-hover);
         text-shadow: var(--mc-text-shadow);
         line-height: 1;
         margin-bottom: 16px;
@@ -224,18 +225,19 @@ module Errors
       }
 
       .mc-btn-accent {
-        background: var(--mc-green);
-        color: #ffffff;
+        background: var(--mc-accent);
+        color: white;
         text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
         box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
       }
       .mc-btn-accent:hover {
         outline: 2px solid var(--mc-focus-ring);
+        color: white;
         outline-offset: 2px;
       }
       .mc-btn-accent:active {
-        background: var(--mc-green-disabled);
-        color: #ffffff;
+        background: var(--mc-accent-disabled);
+        color: grey;
         box-shadow: inset 2px 2px 0px rgba(0,0,0,0.4);
       }
       .mc-btn-accent:focus {

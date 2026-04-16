@@ -64,7 +64,7 @@ class Users::Index < ApplicationView
     .user-avatar {
       width: 60px;
       height: 60px;
-      background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+      background: linear-gradient(135deg, #c25 0%, #e36 100%);
       border: 2px solid var(--mc-border);
       display: flex;
       align-items: center;
@@ -110,7 +110,7 @@ class Users::Index < ApplicationView
     }
 
     .status-online {
-      color: #22c55e;
+      color: #e36;
       font-weight: 700;
       font-size: 0.85rem;
     }

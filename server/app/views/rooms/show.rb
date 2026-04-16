@@ -124,7 +124,7 @@ class Rooms::Show < ApplicationView
     }
 
     .message-sender {
-      color: var(--mc-green-hover);
+      color: var(--mc-accent-hover);
       font-weight: 700;
     }
 
