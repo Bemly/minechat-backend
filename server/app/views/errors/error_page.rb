@@ -210,7 +210,8 @@ module Errors
         transition: background 0.1s;
       }
       .mc-btn:hover {
-        background: #ffffff;
+        outline: 2px solid var(--mc-focus-ring);
+        outline-offset: 2px;
       }
       .mc-btn:active {
         background: #8b8b8b;
@@ -228,7 +229,8 @@ module Errors
         box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
       }
       .mc-btn-accent:hover {
-        background: var(--mc-green-hover);
+        outline: 2px solid var(--mc-focus-ring);
+        outline-offset: 2px;
       }
       .mc-btn-accent:active {
         background: var(--mc-border);

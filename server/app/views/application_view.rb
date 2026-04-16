@@ -223,7 +223,8 @@ class ApplicationView < Phlex::HTML
       transition: background 0.1s;
     }
     .mc-btn:hover {
-      background: var(--mc-gray-hover);
+      outline: 2px solid var(--mc-focus-ring);
+      outline-offset: 2px;
     }
     .mc-btn:active {
       background: var(--mc-gray-disabled);
@@ -247,7 +248,8 @@ class ApplicationView < Phlex::HTML
       box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
     }
     .mc-btn-accent:hover {
-      background: var(--mc-green-hover);
+      outline: 2px solid var(--mc-focus-ring);
+      outline-offset: 2px;
     }
     .mc-btn-accent:active {
       background: var(--mc-border);
@@ -271,7 +273,8 @@ class ApplicationView < Phlex::HTML
       border-width: 2px;
     }
     .mc-btn-danger:hover {
-      background: #dc2626;
+      outline: 2px solid var(--mc-focus-ring);
+      outline-offset: 2px;
     }
     .mc-btn-danger:focus {
       outline: 2px solid var(--mc-focus-ring);
