@@ -395,9 +395,7 @@ class ApplicationView < Phlex::HTML
       letter-spacing: .04em;
     }
 
-    .mc-form input[type="text"],
-    .mc-form input[type="email"],
-    .mc-form input[type="password"],
+    .mc-form input,
     .mc-form textarea,
     .mc-form select {
       width: 100%;
