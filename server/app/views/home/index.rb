@@ -238,7 +238,7 @@ class Home::Index < ApplicationView
     const bubbleCount = 30;
 
     for (let i = 0; i < bubbleCount; i++) {
-      let bubble = document.createElement('div');
+      let bubble = document.createElement(`div`);
       bubble.classList.add(`bubble`);
 
       // bubble.style.width = `${Math.random() * 10 + 2}px`;
