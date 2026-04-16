@@ -15,7 +15,7 @@ docker compose up -d
 
 Three containers: Rails server + Sidekiq, IBM DB2, Redis.
 
-- Web app: http://localhost:3000
+- Web app: http://localhost:50001
 - DB2: localhost:50000
 
 Run migrations:

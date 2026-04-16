@@ -38,9 +38,10 @@ docker compose exec web bin/rails db:migrate  # 数据库迁移
 ```bash
 cd server
 bundle install
-bin/rails db:create db:migrate    # 创建并迁移数据库
-bin/rails s                        # 启动服务器 (默认 3000 端口)
-bundle exec sidekiq                # 另开终端启动 Sidekiq
+MINECHAT_DATABASE_HOST=192.168.1.162 REDIS_URL=redis://192.168.1.162:6379/0 bin/rails db:migrate
+MINECHAT_DATABASE_HOST=192.168.1.162 REDIS_URL=redis://192.168.1.162:6379/0 bundle exec rails s -b 0.0.0.0 -p 50001
+MINECHAT_DATABASE_HOST=192.168.1.162 REDIS_URL=redis://192.168.1.162:6379/0 bundle exec sidekiq
+```
 bin/rails test                     # 运行测试
 bin/rails test test/controllers/users_controller_test.rb  # 单个测试
 bin/rubocop                        # 代码风格检查
@@ -161,6 +162,11 @@ Member ──< belongs_to >── Room
 - **GUI (Gosu)**: 2D 图形窗口，通过 HTTP 调 `/api/` Marshal API
   - 注意: Gosu 1.4.6 的 draw_rect/draw_text 是 C++ SWIG 绑定，**不支持关键字参数**，全部使用位置参数
 - **Android (Ruboto)**: Ruby 编写的 Android Activity，通过 HTTP 调 `/api/` Marshal API
+
+## 操作约束
+
+- **重启 DB2 前必须征得用户同意**，不要擅自 `db2stop` / `db2start` / `docker restart` 等
+- **不要擅自修改 DB2 配置**（如 AUTHENTICATION 等），除非用户明确指示
 
 ## 重要注意事项
 

@@ -15,7 +15,7 @@ docker compose up -d
 
 三个容器：Rails 服务器 + Sidekiq、IBM DB2、Redis。
 
-- Web 应用：http://localhost:3000
+- Web 应用：http://localhost:50001
 - DB2：localhost:50000
 
 运行迁移：

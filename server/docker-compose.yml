@@ -31,6 +31,7 @@ services:
       - 8.8.8.8
     ports:
       - "6379:6379"
+    command: redis-server --maxmemory 1408mb --maxmemory-policy allkeys-lru
 
   web:
     build:
@@ -51,7 +52,7 @@ services:
       MINECHAT_DATABASE_PASSWORD: db2inst1
       MINECHAT_DATABASE_SCHEMA: DB2INST1
     ports:
-      - "3000:3000"
+      - "50001:50001"
     volumes:
       - .:/app
       - bundle_cache:/usr/local/bundle

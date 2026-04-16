@@ -25,6 +25,6 @@ RUN bundle install
 COPY . .
 RUN chmod +x bin/* && sed -i "s/\r$//g" bin/*
 
-EXPOSE 3000
+EXPOSE 50001
 
 CMD ["bin/docker-entrypoint"]

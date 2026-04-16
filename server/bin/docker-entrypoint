@@ -3,7 +3,7 @@ set -e
 
 # 启动 Rails 服务器（前台，作为容器主进程）
 # Rails 初始化完成后，再启动 Sidekiq（后台）
-bundle exec rails server -b 0.0.0.0 &
+bundle exec rails server -b 0.0.0.0 -p 50001 &
 RAILS_PID=$!
 
 # 等 Rails 启动后再启动 Sidekiq
