@@ -27,4 +27,7 @@ Rails.application.routes.draw do
     end
     resources :messages, only: [:show, :update, :destroy]
   end
+
+  # 其他所有路径导向 404
+  match "*path", to: "errors#not_found", via: :all
 end
