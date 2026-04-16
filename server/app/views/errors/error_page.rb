@@ -40,7 +40,7 @@ module Errors
             end
           end
 
-          script { BUBBLE_JS }
+          script { safe(BUBBLE_JS) }
         end
       end
     end

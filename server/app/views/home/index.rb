@@ -78,7 +78,7 @@ class Home::Index < ApplicationView
     end
 
     style { HOME_CSS }
-    script { BUBBLE_JS }
+    script { safe(BUBBLE_JS) }
   end
 
   HOME_CSS = <<~CSS
