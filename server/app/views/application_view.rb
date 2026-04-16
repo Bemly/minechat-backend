@@ -595,17 +595,17 @@ class ApplicationView < Phlex::HTML
   private
 
   def flash_messages
-    if flash[:notice]
+    if view_context.flash[:notice]
       div(class: "flash-notice") do
         ul do
-          Array(flash[:notice]).each { |msg| li { msg } }
+          Array(view_context.flash[:notice]).each { |msg| li { msg } }
         end
       end
     end
-    if flash[:alert]
+    if view_context.flash[:alert]
       div(class: "flash-alert") do
         ul do
-          Array(flash[:alert]).each { |msg| li { msg } }
+          Array(view_context.flash[:alert]).each { |msg| li { msg } }
         end
       end
     end
