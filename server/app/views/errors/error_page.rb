@@ -41,6 +41,7 @@ module Errors
           end
 
           script { safe(BUBBLE_JS) }
+          script { safe(NODRAG_JS) }
         end
       end
     end

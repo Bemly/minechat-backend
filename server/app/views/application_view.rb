@@ -624,6 +624,8 @@ class ApplicationView < Phlex::HTML
         end
       end
     end
+  end
+
   NODRAG_JS = <<~JS
     document.addEventListener(`DOMContentLoaded`, function() {
       document.querySelectorAll(`a`).forEach(function(el) {
