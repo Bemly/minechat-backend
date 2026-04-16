@@ -68,7 +68,7 @@ class Rooms::Show < ApplicationView
       width: 80px;
       height: 80px;
       background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      border: 3px solid var(--mc-border);
+      border: 2px solid var(--mc-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -86,7 +86,7 @@ class Rooms::Show < ApplicationView
       text-align: left;
       font-size: clamp(1.4rem, 3vw, 1.8rem);
       margin-bottom: 8px;
-      color: #1a1a1a;
+      color: var(--mc-text);
       text-shadow: none;
     }
 
@@ -94,8 +94,8 @@ class Rooms::Show < ApplicationView
       display: inline-block;
       padding: 6px 16px;
       border: 2px solid var(--mc-border);
-      background: rgba(240, 240, 240, 0.8);
-      color: #666;
+      background: #3a3b3e;
+      color: var(--mc-text);
       font-weight: 700;
     }
 
@@ -112,7 +112,7 @@ class Rooms::Show < ApplicationView
 
     .message-item {
       padding: 14px 18px;
-      background: rgba(255, 255, 255, 0.6);
+      background: #3a3b3e;
       border: 2px solid var(--mc-border);
     }
 
@@ -124,7 +124,7 @@ class Rooms::Show < ApplicationView
     }
 
     .message-sender {
-      color: #4ade80;
+      color: var(--mc-green-hover);
       font-weight: 700;
     }
 
@@ -134,7 +134,7 @@ class Rooms::Show < ApplicationView
     }
 
     .message-content {
-      color: #1a1a1a;
+      color: var(--mc-text);
       line-height: 1.4;
     }
 

@@ -51,7 +51,7 @@ class Rooms::Index < ApplicationView
     }
 
     .room-card:hover {
-      transform: translateY(-4px);
+      background: #3a3b3e;
     }
 
     .room-card.active {
@@ -63,7 +63,7 @@ class Rooms::Index < ApplicationView
       width: 50px;
       height: 50px;
       background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      border: 3px solid var(--mc-border);
+      border: 2px solid var(--mc-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -80,7 +80,7 @@ class Rooms::Index < ApplicationView
     .room-name {
       font-size: 1.1rem;
       font-weight: 700;
-      color: #1a1a1a;
+      color: var(--mc-text);
       margin-bottom: 4px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -93,26 +93,26 @@ class Rooms::Index < ApplicationView
       padding: 2px 8px;
       border: 2px solid var(--mc-border);
       display: inline-block;
-      background: rgba(240, 240, 240, 0.6);
+      background: #3a3b3e;
     }
 
     .room-arrow {
       font-size: 1.5rem;
-      color: #666;
+      color: var(--mc-muted);
       transition: transform 0.2s, color 0.2s;
     }
 
     .room-card:hover .room-arrow {
       transform: translateX(4px);
-      color: #4ade80;
+      color: var(--mc-green-hover);
     }
 
     .empty-state {
       text-align: center;
       padding: 48px 20px;
-      background: rgba(240, 240, 240, 0.6);
-      border: 3px solid var(--mc-border);
-      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7);
+      background: var(--mc-bg-default);
+      border: 2px solid var(--mc-border);
+      box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
     }
 
     .empty-icon {

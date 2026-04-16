@@ -67,7 +67,7 @@ class Users::Show < ApplicationView
       width: 100px;
       height: 100px;
       background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-      border: 3px solid var(--mc-border);
+      border: 2px solid var(--mc-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -85,7 +85,7 @@ class Users::Show < ApplicationView
       text-align: left;
       font-size: clamp(1.4rem, 3vw, 1.8rem);
       margin-bottom: 8px;
-      color: #1a1a1a;
+      color: var(--mc-text);
       text-shadow: none;
     }
 
@@ -99,7 +99,7 @@ class Users::Show < ApplicationView
       display: inline-block;
       padding: 6px 16px;
       border: 2px solid var(--mc-border);
-      background: rgba(240, 240, 240, 0.8);
+      background: #3a3b3e;
     }
 
     .status-online {
@@ -121,7 +121,7 @@ class Users::Show < ApplicationView
     .details-card dt {
       margin-top: 20px;
       font-size: 0.9rem;
-      color: #4ade80;
+      color: var(--mc-green-hover);
     }
 
     .details-card dt:first-child {

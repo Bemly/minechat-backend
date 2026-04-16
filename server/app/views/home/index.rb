@@ -77,7 +77,7 @@ class Home::Index < ApplicationView
       end
     end
 
-    style { HOME_CSS }
+    style { safe(HOME_CSS) }
     script { safe(BUBBLE_JS) }
   end
 
@@ -108,12 +108,12 @@ class Home::Index < ApplicationView
       width: min(140px, 18vw);
       height: min(170px, 22vw);
       background-color: var(--mc-bg-default);
-      border: 3px solid var(--mc-border);
+      border: 2px solid var(--mc-border);
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 4px 10px rgba(0,0,0,0.3);
+      box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
       transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
@@ -124,7 +124,7 @@ class Home::Index < ApplicationView
 
     .menu-card-wrapper:hover .menu-card {
       transform: translateY(-10px) scale(1.05);
-      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 8px 12px 15px rgba(0,0,0,0.4);
+      box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3), 4px 8px 12px rgba(0,0,0,0.4);
     }
 
     .menu-card-wrapper:hover .menu-label {

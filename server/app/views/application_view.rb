@@ -34,11 +34,18 @@ class ApplicationView < Phlex::HTML
 
     :root {
       --mc-border: #1e1e1e;
-      --mc-bg-default: #f0f0f0;
-      --mc-bg-active: #4ade80;
+      --mc-bg-default: #313235;
+      --mc-bg-active: #3c8527;
       --mc-text-shadow: 2px 2px 0px rgba(0,0,0,0.7);
-      --mc-text: #1a1a1a;
-      --mc-muted: #666666;
+      --mc-text: #e0e0e0;
+      --mc-muted: #999999;
+      --mc-green: #3c8527;
+      --mc-green-hover: #4ca832;
+      --mc-green-disabled: #2b5c1c;
+      --mc-gray: #c6c6c6;
+      --mc-gray-hover: #ffffff;
+      --mc-gray-disabled: #8b8b8b;
+      --mc-focus-ring: #ffffff;
     }
 
     body {
@@ -124,11 +131,11 @@ class ApplicationView < Phlex::HTML
       transition: color .12s ease;
     }
 
-    .mc-nav a:hover { color: #4ade80; }
+    .mc-nav a:hover { color: var(--mc-green-hover); }
 
     .mc-nav .nav-logo {
       font-size: 1.2rem;
-      color: #4ade80;
+      color: var(--mc-green-hover);
       margin-right: auto;
       text-shadow: 2px 2px 0 rgba(0, 0, 0, .6);
       letter-spacing: .08em;
@@ -178,84 +185,112 @@ class ApplicationView < Phlex::HTML
       text-shadow: 1px 1px 0 rgba(0, 0, 0, .8);
       text-transform: uppercase;
       letter-spacing: .08em;
-      border-bottom: 3px solid rgba(30, 30, 30, 0.6);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.15);
       padding-bottom: 8px;
     }
 
     h3 {
       font-size: 1rem;
-      color: #4ade80;
+      color: var(--mc-green-hover);
       margin: 12px 0 8px;
       text-shadow: 1px 1px 0 rgba(0, 0, 0, .8);
     }
 
     /* Links */
     a {
-      color: #4ade80;
+      color: var(--mc-green-hover);
       text-decoration: none;
       transition: color .12s ease;
     }
-    a:hover { color: #22c55e; }
+    a:hover { color: var(--mc-green); }
 
-    /* Minecraft-style button */
+    /* Minecraft-style button — Secondary */
     .mc-btn {
       display: inline-block;
       padding: 8px 18px;
       font-family: inherit;
       font-size: 1rem;
       font-weight: 700;
-      color: #1a1a1a;
-      background: var(--mc-bg-default);
-      border: 3px solid var(--mc-border);
+      color: #1a1a1f;
+      background: var(--mc-gray);
+      border: 2px solid var(--mc-border);
       text-decoration: none;
       cursor: pointer;
-      text-shadow: 1px 1px 0 rgba(255, 255, 255, .5);
-      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 4px 10px rgba(0,0,0,0.3);
+      text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.8);
       text-transform: uppercase;
       letter-spacing: .04em;
-      transition: transform 0.1s, filter 0.1s;
+      transition: background 0.1s;
     }
     .mc-btn:hover {
-      filter: brightness(0.95);
-      transform: translateY(-2px);
+      background: var(--mc-gray-hover);
     }
     .mc-btn:active {
-      transform: translateY(1px);
-      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 2px 2px 5px rgba(0,0,0,0.3);
+      background: var(--mc-gray-disabled);
+      box-shadow: inset 2px 2px 0px rgba(0,0,0,0.3);
+    }
+    .mc-btn:focus {
+      outline: 2px solid var(--mc-focus-ring);
+      outline-offset: 2px;
+    }
+    .mc-btn:disabled {
+      background: var(--mc-gray-disabled);
+      color: #333;
+      cursor: not-allowed;
     }
 
-    /* Green accent button */
+    /* Green accent button — Primary */
     .mc-btn-accent {
-      background: #4ade80;
-      color: #1a1a1a;
+      background: var(--mc-green);
+      color: #ffffff;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+      box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
     }
     .mc-btn-accent:hover {
-      background: #22c55e;
+      background: var(--mc-green-hover);
+    }
+    .mc-btn-accent:active {
+      background: var(--mc-border);
+      color: #aaaaaa;
+      box-shadow: inset 2px 2px 0px rgba(0,0,0,0.4);
+    }
+    .mc-btn-accent:focus {
+      outline: 2px solid var(--mc-focus-ring);
+      outline-offset: 2px;
+    }
+    .mc-btn-accent:disabled {
+      background: var(--mc-green-disabled);
+      color: #aaaaaa;
+      cursor: not-allowed;
     }
 
     /* Red danger button */
     .mc-btn-danger {
       background: #ef4444;
       border-color: #b91c1c;
+      border-width: 2px;
     }
     .mc-btn-danger:hover {
       background: #dc2626;
+    }
+    .mc-btn-danger:focus {
+      outline: 2px solid var(--mc-focus-ring);
+      outline-offset: 2px;
     }
 
     /* OreUI 风格卡片 */
     .ore-card {
       background: var(--mc-bg-default);
-      border: 3px solid var(--mc-border);
+      border: 2px solid var(--mc-border);
       border-radius: 0;
       padding: 20px 24px;
       margin: 12px 0;
-      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 4px 10px rgba(0,0,0,0.3);
-      transition: transform 0.2s;
+      box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
+      transition: background 0.12s;
     }
 
     .ore-card:hover {
-      transform: translateY(-4px);
-      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 6px 8px 16px rgba(0,0,0,0.4);
+      background: #3a3b3e;
     }
 
     .ore-card.active {
@@ -341,19 +376,17 @@ class ApplicationView < Phlex::HTML
       align-items: center;
       padding: 14px 18px;
       background: var(--mc-bg-default);
-      border: 3px solid var(--mc-border);
+      border: 2px solid var(--mc-border);
       border-radius: 0;
-      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 2px 2px 6px rgba(0,0,0,0.2);
-      transition: transform 0.12s, box-shadow 0.12s;
+      box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
+      transition: background 0.12s;
       text-decoration: none;
       color: var(--mc-text);
       gap: 12px;
     }
 
     .ore-list-item:hover {
-      transform: translateY(-2px);
-      box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 6px 12px rgba(0,0,0,0.3);
-      border-color: #4ade80;
+      background: #3a3b3e;
     }
 
     .ore-list-item .item-name {
@@ -366,6 +399,7 @@ class ApplicationView < Phlex::HTML
       padding: 4px 10px;
       font-size: 0.85rem;
       color: var(--mc-muted);
+      background: #3a3b3e;
       border: 2px solid var(--mc-border);
     }
 
@@ -374,8 +408,8 @@ class ApplicationView < Phlex::HTML
       padding: 6px 12px;
       font-size: 0.85rem;
       font-weight: 700;
-      color: #1a1a1a;
-      background: #4ade80;
+      color: #ffffff;
+      background: var(--mc-green);
       border: 2px solid var(--mc-border);
     }
 
@@ -399,23 +433,24 @@ class ApplicationView < Phlex::HTML
     .mc-form textarea,
     .mc-form select {
       width: 100%;
-      border: 3px solid var(--mc-border);
+      border: 2px solid var(--mc-border);
       border-radius: 0;
       padding: 12px 16px;
       font-size: 1rem;
       font-family: inherit;
-      color: #1a1a1a;
-      background: var(--mc-bg-default);
+      color: #1a1a1f;
+      background: var(--mc-gray);
       outline: none;
       box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7);
-      transition: border-color .16s ease;
+      transition: background .12s ease;
     }
 
     .mc-form input:focus,
     .mc-form textarea:focus,
     .mc-form select:focus {
-      border-color: #4ade80;
-      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7), 0 0 0 3px rgba(74, 222, 128, 0.3);
+      background: var(--mc-gray-hover);
+      outline: 2px solid var(--mc-focus-ring);
+      outline-offset: 2px;
     }
 
     /* Flash messages */
@@ -424,13 +459,13 @@ class ApplicationView < Phlex::HTML
       z-index: 10;
       width: min(900px, 100%);
       margin: 8px auto;
-      background: rgba(74, 222, 128, 0.2);
-      border: 3px solid #4ade80;
-      color: #4ade80;
+      background: rgba(60, 133, 39, 0.2);
+      border: 2px solid var(--mc-green);
+      color: var(--mc-green-hover);
       padding: 14px 18px;
       font-weight: 700;
       text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
-      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7);
+      box-shadow: inset -2px -2px 0px rgba(255,255,255,0.05), inset 2px 2px 0px rgba(0,0,0,0.2);
     }
 
     .flash-alert {
@@ -439,12 +474,12 @@ class ApplicationView < Phlex::HTML
       width: min(900px, 100%);
       margin: 8px auto;
       background: rgba(239, 68, 68, 0.2);
-      border: 3px solid #ef4444;
+      border: 2px solid #ef4444;
       color: #ef4444;
       padding: 14px 18px;
       font-weight: 700;
       text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
-      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7);
+      box-shadow: inset -2px -2px 0px rgba(255,255,255,0.05), inset 2px 2px 0px rgba(0,0,0,0.2);
     }
 
     /* Actions row */
@@ -458,20 +493,20 @@ class ApplicationView < Phlex::HTML
     /* Messages */
     .mc-message {
       padding: 14px 18px;
-      background: rgba(240, 240, 240, 0.8);
-      border: 3px solid var(--mc-border);
+      background: rgba(49, 50, 53, 0.8);
+      border: 2px solid var(--mc-border);
       margin-bottom: 8px;
-      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7);
+      box-shadow: inset -2px -2px 0px rgba(255,255,255,0.05), inset 2px 2px 0px rgba(0,0,0,0.2);
     }
 
     .mc-message .msg-sender {
-      color: #4ade80;
+      color: var(--mc-green-hover);
       font-weight: 700;
       margin-right: 10px;
     }
 
     .mc-message .msg-content {
-      color: #1a1a1a;
+      color: var(--mc-text);
     }
 
     .mc-message .msg-time {
@@ -483,7 +518,7 @@ class ApplicationView < Phlex::HTML
     /* Card detail */
     .ore-card dt {
       font-weight: 700;
-      color: #4ade80;
+      color: var(--mc-green-hover);
       margin-top: 14px;
       text-transform: uppercase;
       font-size: 0.9rem;
@@ -493,7 +528,7 @@ class ApplicationView < Phlex::HTML
     .ore-card dt:first-child { margin-top: 0; }
     .ore-card dd {
       margin-left: 0;
-      color: #1a1a1a;
+      color: var(--mc-text);
       padding: 6px 0;
       font-size: 1.05rem;
     }
@@ -506,7 +541,7 @@ class ApplicationView < Phlex::HTML
 
     .mc-error .error-code {
       font-size: clamp(4rem, 12vw, 8rem);
-      color: #4ade80;
+      color: var(--mc-green-hover);
       text-shadow: var(--mc-text-shadow);
       line-height: 1;
     }

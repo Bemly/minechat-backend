@@ -58,14 +58,14 @@ class Users::Index < ApplicationView
     }
 
     .user-card:hover {
-      transform: translateY(-6px) scale(1.02);
+      background: #3a3b3e;
     }
 
     .user-avatar {
       width: 60px;
       height: 60px;
       background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-      border: 3px solid var(--mc-border);
+      border: 2px solid var(--mc-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -81,7 +81,7 @@ class Users::Index < ApplicationView
     .user-name {
       font-size: 1.1rem;
       font-weight: 700;
-      color: #1a1a1a;
+      color: var(--mc-text);
       margin-bottom: 4px;
       min-height: 2rem;
     }
@@ -105,7 +105,7 @@ class Users::Index < ApplicationView
     .user-status {
       padding: 4px 12px;
       border: 2px solid var(--mc-border);
-      background: rgba(240, 240, 240, 0.8);
+      background: #3a3b3e;
       border-radius: 0;
     }
 
@@ -124,9 +124,9 @@ class Users::Index < ApplicationView
     .empty-state {
       text-align: center;
       padding: 48px 20px;
-      background: rgba(240, 240, 240, 0.6);
-      border: 3px solid var(--mc-border);
-      box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.7);
+      background: var(--mc-bg-default);
+      border: 2px solid var(--mc-border);
+      box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
     }
 
     .empty-icon {

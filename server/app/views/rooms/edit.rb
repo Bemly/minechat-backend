@@ -67,7 +67,7 @@ class Rooms::Edit < ApplicationView
       gap: 12px;
       margin-bottom: 24px;
       padding-bottom: 16px;
-      border-bottom: 3px solid var(--mc-border);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.15);
     }
 
     .form-icon {
@@ -77,8 +77,7 @@ class Rooms::Edit < ApplicationView
     .form-title {
       font-size: 1.3rem;
       font-weight: 700;
-      color: #1a1a1a;
-      text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+      color: var(--mc-text);
     }
 
     .form-subtitle {
@@ -87,7 +86,7 @@ class Rooms::Edit < ApplicationView
       color: var(--mc-muted);
       padding: 4px 10px;
       border: 2px solid var(--mc-border);
-      background: rgba(240, 240, 240, 0.6);
+      background: #3a3b3e;
     }
 
     .form-required {

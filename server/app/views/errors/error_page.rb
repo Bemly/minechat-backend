@@ -15,7 +15,7 @@ module Errors
           title { "#{@code} - #{@title}" }
           meta name: "viewport", content: "width=device-width, initial-scale=1.0"
           link(rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Silkscreen&display=swap")
-          style { CSS }
+          style { safe(CSS) }
         end
         body do
           div(class: "underwater-bg")
@@ -50,9 +50,13 @@ module Errors
 
       :root {
         --mc-border: #1e1e1e;
-        --mc-bg-default: #f0f0f0;
-        --mc-bg-active: #4ade80;
+        --mc-bg-default: #313235;
+        --mc-bg-active: #3c8527;
         --mc-text-shadow: 2px 2px 0px rgba(0,0,0,0.7);
+        --mc-green: #3c8527;
+        --mc-green-hover: #4ca832;
+        --mc-gray: #c6c6c6;
+        --mc-focus-ring: #ffffff;
       }
 
       body {
@@ -148,9 +152,9 @@ module Errors
         align-items: center;
         justify-content: center;
         padding: 48px 32px;
-        background: rgba(240, 240, 240, 0.6);
-        border: 3px solid var(--mc-border);
-        box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 4px 16px rgba(0,0,0,0.3);
+        background: var(--mc-bg-default);
+        border: 2px solid var(--mc-border);
+        box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
       }
 
       .mc-error { text-align: center; }
@@ -162,7 +166,7 @@ module Errors
 
       .error-code {
         font-size: clamp(4rem, 10vw, 6rem);
-        color: #4ade80;
+        color: var(--mc-green-hover);
         text-shadow: var(--mc-text-shadow);
         line-height: 1;
         margin-bottom: 16px;
@@ -194,31 +198,46 @@ module Errors
         font-family: inherit;
         font-size: 1rem;
         font-weight: 700;
-        color: #1a1a1a;
-        background: var(--mc-bg-default);
-        border: 3px solid var(--mc-border);
+        color: #1a1a1f;
+        background: var(--mc-gray);
+        border: 2px solid var(--mc-border);
         text-decoration: none;
         cursor: pointer;
-        text-shadow: 1px 1px 0 rgba(255, 255, 255, .5);
-        box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 4px 4px 10px rgba(0,0,0,0.3);
+        text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+        box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1), inset 2px 2px 0px rgba(255,255,255,0.8);
         text-transform: uppercase;
         letter-spacing: .04em;
-        transition: transform 0.1s, filter 0.1s;
+        transition: background 0.1s;
       }
       .mc-btn:hover {
-        filter: brightness(0.95);
-        transform: translateY(-2px);
+        background: #ffffff;
       }
       .mc-btn:active {
-        transform: translateY(1px);
-        box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1), inset 3px 3px 0px rgba(255,255,255,0.7), 2px 2px 5px rgba(0,0,0,0.3);
+        background: #8b8b8b;
+        box-shadow: inset 2px 2px 0px rgba(0,0,0,0.3);
+      }
+      .mc-btn:focus {
+        outline: 2px solid var(--mc-focus-ring);
+        outline-offset: 2px;
       }
 
       .mc-btn-accent {
-        background: #4ade80;
+        background: var(--mc-green);
+        color: #ffffff;
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+        box-shadow: inset -2px -2px 0px rgba(255,255,255,0.15), inset 2px 2px 0px rgba(0,0,0,0.3);
       }
       .mc-btn-accent:hover {
-        background: #22c55e;
+        background: var(--mc-green-hover);
+      }
+      .mc-btn-accent:active {
+        background: var(--mc-border);
+        color: #aaaaaa;
+        box-shadow: inset 2px 2px 0px rgba(0,0,0,0.4);
+      }
+      .mc-btn-accent:focus {
+        outline: 2px solid var(--mc-focus-ring);
+        outline-offset: 2px;
       }
 
       /* 漂浮的粒子/气泡 */
