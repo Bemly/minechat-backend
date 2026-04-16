@@ -48,7 +48,7 @@ class Rooms::Edit < ApplicationView
       end
     end
 
-    style { ROOMS_EDIT_CSS }
+    style { safe(ROOMS_EDIT_CSS) }
   end
 
   ROOMS_EDIT_CSS = <<~CSS

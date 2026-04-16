@@ -43,7 +43,7 @@ class Users::Index < ApplicationView
       end
     end
 
-    style { USERS_INDEX_CSS }
+    style { safe(USERS_INDEX_CSS) }
   end
 
   USERS_INDEX_CSS = <<~CSS

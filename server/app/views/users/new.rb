@@ -58,7 +58,7 @@ class Users::New < ApplicationView
       end
     end
 
-    style { USERS_NEW_CSS }
+    style { safe(USERS_NEW_CSS) }
   end
 
   USERS_NEW_CSS = <<~CSS

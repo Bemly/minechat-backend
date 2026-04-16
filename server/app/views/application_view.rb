@@ -9,7 +9,7 @@ class ApplicationView < Phlex::HTML
         meta name: "viewport", content: "width=device-width, initial-scale=1.0"
         title { "Minechat - OreUI" }
         link(rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Silkscreen&display=swap")
-        style { BASE_CSS }
+        style { safe(BASE_CSS) }
       end
       body do
         div(class: "underwater-bg")

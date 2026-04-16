@@ -46,7 +46,7 @@ class Users::Show < ApplicationView
       end
     end
 
-    style { USERS_SHOW_CSS }
+    style { safe(USERS_SHOW_CSS) }
   end
 
   USERS_SHOW_CSS = <<~CSS

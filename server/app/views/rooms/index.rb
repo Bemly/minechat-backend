@@ -36,7 +36,7 @@ class Rooms::Index < ApplicationView
       end
     end
 
-    style { ROOMS_INDEX_CSS }
+    style { safe(ROOMS_INDEX_CSS) }
   end
 
   ROOMS_INDEX_CSS = <<~CSS

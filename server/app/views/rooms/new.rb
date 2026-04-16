@@ -45,7 +45,7 @@ class Rooms::New < ApplicationView
       end
     end
 
-    style { ROOMS_NEW_CSS }
+    style { safe(ROOMS_NEW_CSS) }
   end
 
   ROOMS_NEW_CSS = <<~CSS

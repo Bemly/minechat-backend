@@ -50,7 +50,7 @@ class Users::Edit < ApplicationView
       end
     end
 
-    style { USERS_EDIT_CSS }
+    style { safe(USERS_EDIT_CSS) }
   end
 
   USERS_EDIT_CSS = <<~CSS
