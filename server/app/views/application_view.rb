@@ -203,6 +203,7 @@ class ApplicationView < Phlex::HTML
       transition: color .12s ease;
     }
     a:hover { color: var(--mc-green); }
+    a.mc-btn, a.mc-btn:hover, a.mc-btn:active, a.mc-btn:focus { color: inherit; }
 
     /* Minecraft-style button — Secondary */
     .mc-btn {
