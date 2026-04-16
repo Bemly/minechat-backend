@@ -215,7 +215,7 @@ module Errors
       }
       .mc-btn:active {
         background: #8b8b8b;
-        color: #ffffff;
+        color: #1a1a1f;
         box-shadow: inset 2px 2px 0px rgba(0,0,0,0.3);
       }
       .mc-btn:focus {
@@ -234,8 +234,8 @@ module Errors
         outline-offset: 2px;
       }
       .mc-btn-accent:active {
-        background: var(--mc-border);
-        color: #aaaaaa;
+        background: var(--mc-green-disabled);
+        color: #ffffff;
         box-shadow: inset 2px 2px 0px rgba(0,0,0,0.4);
       }
       .mc-btn-accent:focus {
