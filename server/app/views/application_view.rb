@@ -21,6 +21,7 @@ class ApplicationView < Phlex::HTML
           flash_messages
           div(class: "content-panel") { content }
         end
+        script { safe(NODRAG_JS) }
       end
     end
   end
@@ -62,6 +63,10 @@ class ApplicationView < Phlex::HTML
     a, img, button, svg {
       -webkit-user-drag: none;
       user-drag: none;
+    }
+
+    a {
+      -webkit-touch-callout: none;
     }
 
     img {
@@ -619,5 +624,11 @@ class ApplicationView < Phlex::HTML
         end
       end
     end
-  end
+  NODRAG_JS = <<~JS
+    document.addEventListener(`DOMContentLoaded`, function() {
+      document.querySelectorAll(`a`).forEach(function(el) {
+        el.setAttribute(`draggable`, `false`);
+      });
+    });
+  JS
 end
