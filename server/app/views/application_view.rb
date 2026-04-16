@@ -202,7 +202,6 @@ class ApplicationView < Phlex::HTML
       text-decoration: none;
       transition: color .12s ease;
     }
-    a:hover { color: var(--mc-accent); }
     a.mc-btn:not(.mc-btn-accent):not(.mc-btn-danger),
     a.mc-btn:not(.mc-btn-accent):not(.mc-btn-danger):hover,
     a.mc-btn:not(.mc-btn-accent):not(.mc-btn-danger):active,
@@ -596,17 +595,17 @@ class ApplicationView < Phlex::HTML
   private
 
   def flash_messages
-    if helpers.flash[:notice]
+    if flash[:notice]
       div(class: "flash-notice") do
         ul do
-          Array(helpers.flash[:notice]).each { |msg| li { msg } }
+          Array(flash[:notice]).each { |msg| li { msg } }
         end
       end
     end
-    if helpers.flash[:alert]
+    if flash[:alert]
       div(class: "flash-alert") do
         ul do
-          Array(helpers.flash[:alert]).each { |msg| li { msg } }
+          Array(flash[:alert]).each { |msg| li { msg } }
         end
       end
     end
