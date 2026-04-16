@@ -234,12 +234,12 @@ class Home::Index < ApplicationView
 
   BUBBLE_JS = <<~JS
     // 生成水下背景的粒子气泡
-    const bubblesContainer = document.getElementById('bubbles-container');
+    const bubblesContainer = document.getElementById(`bubbles-container`);
     const bubbleCount = 30;
 
     for (let i = 0; i < bubbleCount; i++) {
       let bubble = document.createElement('div');
-      bubble.classList.add('bubble');
+      bubble.classList.add(`bubble`);
 
       // bubble.style.width = `${Math.random() * 10 + 2}px`;
       bubble.style.height = `${Math.random() * 10 + 2}px`;
