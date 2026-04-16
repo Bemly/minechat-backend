@@ -203,7 +203,10 @@ class ApplicationView < Phlex::HTML
       transition: color .12s ease;
     }
     a:hover { color: var(--mc-green); }
-    a.mc-btn, a.mc-btn:hover, a.mc-btn:active, a.mc-btn:focus { color: #1a1a1f; }
+    a.mc-btn:not(.mc-btn-accent):not(.mc-btn-danger),
+    a.mc-btn:not(.mc-btn-accent):not(.mc-btn-danger):hover,
+    a.mc-btn:not(.mc-btn-accent):not(.mc-btn-danger):active,
+    a.mc-btn:not(.mc-btn-accent):not(.mc-btn-danger):focus { color: #1a1a1f; }
 
     /* Minecraft-style button — Secondary */
     .mc-btn {
