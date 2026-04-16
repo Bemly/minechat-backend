@@ -54,8 +54,18 @@ class ApplicationView < Phlex::HTML
       overflow: hidden;
       background-color: #0b4b6c;
       user-select: none;
+      -webkit-user-drag: none;
       color: var(--mc-text);
       min-height: 100vh;
+    }
+
+    a, img, button, svg {
+      -webkit-user-drag: none;
+      user-drag: none;
+    }
+
+    img {
+      pointer-events: none;
     }
 
     /* 动态水下背景 */
