@@ -215,6 +215,7 @@ module Errors
       }
       .mc-btn:active {
         background: #8b8b8b;
+        color: #ffffff;
         box-shadow: inset 2px 2px 0px rgba(0,0,0,0.3);
       }
       .mc-btn:focus {
